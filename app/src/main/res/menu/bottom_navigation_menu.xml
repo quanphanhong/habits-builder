@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/DailyTask"
+        android:title="@string/mode1"
+        android:icon="@drawable/calendar"/>
+
+    <item
+        android:id="@+id/HabitList"
+        android:title="@string/mode2"
+        android:icon="@drawable/checklist"/>
+
+    <item
+        android:id="@+id/Pet"
+        android:title="@string/mode3"
+        android:icon="@drawable/pet"/>
+</menu>
