@@ -9,4 +9,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- New Habit Activity -->
+    <string name="new_habit_title1">Name:</string>
+    <string name="new_habit_title2">Description:</string>
+    <string name="new_habit_title3">Starting Day:</string>
+    <string name="new_habit_title4">Frequency:</string>
+    <string name="new_habit_title4_1"> days a week</string>
+    <string name="new_habit_title5">Reminder:</string>
 </resources>
