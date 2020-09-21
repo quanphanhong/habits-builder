@@ -11,15 +11,21 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="671dp"
-
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
+        app:labelVisibilityMode="unlabeled"
+        android:elevation="8dp"
+        android:background="@drawable/bottom_navigation_background"
+        app:itemIconTint="@drawable/bottom_navigation_color_selector"
         app:menu="@menu/bottom_navigation_menu"/>
 
 </RelativeLayout>

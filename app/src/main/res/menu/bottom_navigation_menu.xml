@@ -3,15 +3,26 @@
     <item
         android:id="@+id/DailyTask"
         android:title="@string/mode1"
-        android:icon="@drawable/calendar"/>
+        android:icon="@drawable/ic_calendar"/>
 
     <item
         android:id="@+id/HabitList"
         android:title="@string/mode2"
-        android:icon="@drawable/checklist"/>
+        android:icon="@drawable/ic_checklist"/>
+
+    <item
+        android:id="@+id/NewHabit"
+        android:title="@string/mode3"
+        android:icon="@drawable/ic_insert"/>
 
     <item
         android:id="@+id/Pet"
-        android:title="@string/mode3"
-        android:icon="@drawable/pet"/>
+        android:title="@string/mode4"
+        android:icon="@drawable/ic_pet"/>
+
+    <item
+        android:id="@+id/Achievements"
+        android:title="@string/mode5"
+        android:icon="@drawable/ic_achievements"/>
+
 </menu>
