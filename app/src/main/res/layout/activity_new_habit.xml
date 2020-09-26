@@ -6,23 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".NewHabit">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_panel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="132dp"
+            android:layout_marginLeft="132dp"
+            android:gravity="center_horizontal"
+            android:text="@string/mode3"
+            android:textAlignment="center"
+            android:textColor="@color/titleColor"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/exitButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:foreground="@drawable/ic_exit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp"
+            android:foreground="@drawable/ic_save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/header_panel"
         android:id="@+id/habit_name_layout">
 
-        <TextView
-            android:id="@+id/habit_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_habit_title1"
-            android:textSize="@dimen/new_habit_title_size"/>
+        <ImageView
+            android:id="@+id/habit_name_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/new_habit_icon_margin"
+            android:src="@drawable/ic_flag"/>
 
         <EditText
             android:id="@+id/habit_name_edit_text"
-            android:layout_width="70dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/new_habit_edit_text_size"/>
+            android:layout_marginRight="@dimen/new_habit_text_margin"
+            android:layout_marginTop="@dimen/new_habit_text_margin"
+            android:layout_marginBottom="@dimen/new_habit_text_margin"
+            android:maxLines="1"
+            android:minLines="1"
+            android:textSize="@dimen/new_habit_edit_text_size_large"/>
 
     </LinearLayout>
 
@@ -32,19 +85,21 @@
         android:id="@+id/habit_description_layout"
         android:layout_below="@+id/habit_name_layout">
 
-        <TextView
-            android:id="@+id/habit_description_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_habit_title2"
-            android:textSize="@dimen/new_habit_title_size"/>
+        <ImageView
+            android:id="@+id/habit_description_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/new_habit_icon_margin"
+            android:src="@drawable/ic_writing"/>
 
         <EditText
             android:id="@+id/habit_description_edit_text"
-            android:layout_width="70dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/new_habit_text_margin"
             android:minLines="3"
-            android:textSize="@dimen/new_habit_edit_text_size"/>
+            android:maxLines="3"
+            android:textSize="@dimen/new_habit_edit_text_size_small"/>
 
     </LinearLayout>
 
@@ -54,19 +109,23 @@
         android:id="@+id/habit_starting_day_layout"
         android:layout_below="@+id/habit_description_layout">
 
-        <TextView
-            android:id="@+id/habit_starting_day_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_habit_title3"
-            android:textSize="@dimen/new_habit_title_size"/>
+        <ImageView
+            android:id="@+id/habit_starting_day_image_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/new_habit_icon_margin"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_calendar"/>
 
         <EditText
             android:id="@+id/habit_starting_day_edit_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/new_habit_text_margin"
+            android:textAlignment="textEnd"
             android:inputType="datetime"
-            android:textSize="@dimen/new_habit_edit_text_size"/>
+            android:textSize="@dimen/new_habit_edit_text_size_small"
+            android:gravity="end" />
 
     </LinearLayout>
 
@@ -76,25 +135,48 @@
         android:id="@+id/habit_frequency_layout"
         android:layout_below="@+id/habit_starting_day_layout">
 
+        <ImageView
+            android:id="@+id/habit_frequency_image_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/new_habit_icon_margin"
+            android:src="@drawable/ic_clock"/>
+
+        <Spinner
+            android:id="@+id/habit_frequency_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/new_habit_text_margin"
+            android:textSize="@dimen/new_habit_edit_text_size_small"/>
+
         <TextView
             android:id="@+id/habit_frequency_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_habit_title4"
-            android:textSize="@dimen/new_habit_title_size"/>
+            android:layout_margin="@dimen/new_habit_text_margin"
+            android:text="@string/new_habit_title4_1"
+            android:textSize="@dimen/new_habit_edit_text_size_small"/>
 
-        <Spinner
-            android:id="@+id/habit_frequency_spinner"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/new_habit_edit_text_size"/>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/habit_frequency_text_view_2"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/habit_alert_layout"
+        android:layout_below="@+id/habit_frequency_layout">
+
+        <ImageView
+            android:id="@+id/habit_alert_image_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/new_habit_icon_margin"
+            android:src="@drawable/ic_writing"/>
+
+        <Switch
+            android:id="@+id/habit_alert_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_habit_title4_1"
-            android:textSize="@dimen/new_habit_title_size"/>
+            android:layout_margin="@dimen/new_habit_text_margin"/>
 
     </LinearLayout>
 

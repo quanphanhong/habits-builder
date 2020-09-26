@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -67,5 +68,9 @@ public class MainActivity extends AppCompatActivity {
     private void openNewHabitActivity() {
         Intent intent = new Intent(this, NewHabit.class);
         startActivity(intent);
+    }
+
+    public void addingHabitClicked(View view) {
+        openNewHabitActivity();
     }
 }

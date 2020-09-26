@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DailyTaskFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -86,5 +87,7 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
     </RelativeLayout>
+
 </FrameLayout>

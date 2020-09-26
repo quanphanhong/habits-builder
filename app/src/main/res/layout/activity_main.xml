@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:onClick="addingHabitClicked"
             app:backgroundTint="#03A9F4"
             app:srcCompat="@drawable/ic_plus" />
 

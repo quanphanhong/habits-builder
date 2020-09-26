@@ -5,9 +5,13 @@
     <dimen name="daily_task_habit_list_title">20sp</dimen>
     <dimen name="daily_task_layout_margin_left">20dp</dimen>
 
-    <dimen name="new_habit_title_size">20sp</dimen>
-    <dimen name="new_habit_edit_text_size">20sp</dimen>
-
     <!-- habit list -->
     <dimen name="habit_name_text_size">20sp</dimen>
+
+    <!-- new habit -->
+    <dimen name="new_habit_icon_margin">20dp</dimen>
+    <dimen name="new_habit_text_margin">20dp</dimen>
+    <dimen name="new_habit_title_size">20sp</dimen>
+    <dimen name="new_habit_edit_text_size_large">30sp</dimen>
+    <dimen name="new_habit_edit_text_size_small">20sp</dimen>
 </resources>
