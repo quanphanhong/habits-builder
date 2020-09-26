@@ -26,6 +26,17 @@
         android:elevation="8dp"
         android:background="@drawable/bottom_navigation_background"
         app:itemIconTint="@drawable/bottom_navigation_color_selector"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addingButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:backgroundTint="#03A9F4"
+            app:srcCompat="@drawable/ic_plus" />
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

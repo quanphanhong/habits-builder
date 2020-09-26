@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Habits Builder</string>
     <string name="habit_adding_menu">Add new habit</string>
-    <string name="habit_list">Habit List</string>
+    <string name="habit_list">Tasks</string>
 
+    <!--Daily Tasks Activity -->
     <string name="mode1">Daily Tasks</string>
     <string name="mode2">Habits</string>
     <string name="mode3">New Habit</string>

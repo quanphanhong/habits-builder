@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,10 +8,35 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_panel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_horizontal"
+                android:text="@string/mode1"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/titleColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <CalendarView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/calendar"/>
+            android:id="@+id/calendar"
+            android:layout_below="@+id/header_panel"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,7 +46,18 @@
             android:paddingLeft="10dp"
             android:text="@string/habit_list"
             android:textSize="@dimen/daily_task_habit_list_title"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/habit_list_text"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_grey"
+            android:visibility="invisible" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/habit_list_scrollview"

@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
         habit_list = (LinearLayout) findViewById(R.id.habit_list);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation_bar);
 
-
         fragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-        //navController = fragment.getNavController();
         navController = Navigation.findNavController(this, R.id.fragment);
     }
 
@@ -53,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.HabitList:
                                 navController.navigate(R.id.habitListFragment);
                                 break;
+                            case R.id.NewHabit:
+                                openNewHabitActivity();
+                                break;
                             case R.id.Pet:
                                 navController.navigate(R.id.petsFragment);
                                 break;
@@ -61,23 +62,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.addNewHabit:
-                openNewHabitActivity();
-        }
-
-        return true;
     }
 
     private void openNewHabitActivity() {
