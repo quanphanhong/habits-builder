@@ -23,7 +23,7 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 10;
 
     static {
         // Add some sample items.
@@ -38,7 +38,7 @@ public class DummyContent {
     }
 
     private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        return new DummyItem(String.valueOf(position), "Description " + position, "Level No." + position,"Habit No." + position, "Start: Day No." + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -55,18 +55,24 @@ public class DummyContent {
      */
     public static class DummyItem {
         public final String id;
-        public final String content;
+        public final String habit_name;
+        public final String habit_description;
+        public final String habit_starting_day;
+        public final String text_level;
         public final String details;
 
-        public DummyItem(String id, String content, String details) {
+        public DummyItem(String id, String habit_description, String text_level, String habit_name, String habit_starting_day, String details) {
             this.id = id;
-            this.content = content;
+            this.habit_name = habit_name;
+            this.habit_description = habit_description;
+            this.habit_starting_day = habit_starting_day;
+            this.text_level = text_level;
             this.details = details;
         }
 
         @Override
         public String toString() {
-            return content;
+            return details;
         }
     }
 }

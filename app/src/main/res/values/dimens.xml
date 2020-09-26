@@ -7,4 +7,7 @@
 
     <dimen name="new_habit_title_size">20sp</dimen>
     <dimen name="new_habit_edit_text_size">20sp</dimen>
+
+    <!-- habit list -->
+    <dimen name="habit_name_text_size">20sp</dimen>
 </resources>

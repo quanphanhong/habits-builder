@@ -33,8 +33,10 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mHabitName.setText(mValues.get(position).habit_name);
+        holder.mHabitDescription.setText(mValues.get(position).habit_description);
+        holder.mHabitStartingDay.setText(mValues.get(position).habit_starting_day);
+        holder.mTextLevel.setText(mValues.get(position).text_level);
     }
 
     @Override
@@ -44,20 +46,24 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mHabitName;
+        public final TextView mHabitDescription;
+        public final TextView mHabitStartingDay;
+        public final TextView mTextLevel;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mHabitName = (TextView) view.findViewById(R.id.habit_name);
+            mHabitDescription = (TextView) view.findViewById(R.id.habit_description);
+            mHabitStartingDay = (TextView) view.findViewById(R.id.habit_starting_day);
+            mTextLevel = (TextView) view.findViewById(R.id.text_level);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mTextLevel.getText() + "'";
         }
     }
 }

@@ -11,23 +11,14 @@
         android:label="fragment_daily_task"
         tools:layout="@layout/fragment_daily_task" >
         <action
+            android:id="@+id/action_dailyTaskFragment_to_habitListFragment3"
+            app:destination="@id/habitListFragment" />
+        <action
             android:id="@+id/action_dailyTaskFragment_to_petsFragment"
             app:destination="@id/petsFragment" />
         <action
-            android:id="@+id/action_dailyTaskFragment_to_habitListFragment3"
-            app:destination="@id/habitListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/petsFragment"
-        android:name="com.example.habitsbuilder.PetsFragment"
-        android:label="fragment_pets"
-        tools:layout="@layout/fragment_pets" >
-        <action
-            android:id="@+id/action_petsFragment_to_dailyTaskFragment"
-            app:destination="@id/dailyTaskFragment" />
-        <action
-            android:id="@+id/action_petsFragment_to_habitListFragment3"
-            app:destination="@id/habitListFragment" />
+            android:id="@+id/action_dailyTaskFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
     </fragment>
     <fragment
         android:id="@+id/habitListFragment"
@@ -38,7 +29,40 @@
             android:id="@+id/action_habitListFragment3_to_dailyTaskFragment"
             app:destination="@id/dailyTaskFragment" />
         <action
-            android:id="@+id/action_habitListFragment3_to_petsFragment"
+            android:id="@+id/action_habitListFragment_to_petsFragment"
+            app:destination="@id/petsFragment" />
+        <action
+            android:id="@+id/action_habitListFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/petsFragment"
+        android:name="com.example.habitsbuilder.PetsFragment"
+        android:label="fragment_pets"
+        tools:layout="@layout/fragment_pets" >
+        <action
+            android:id="@+id/action_petsFragment_to_habitListFragment"
+            app:destination="@id/habitListFragment" />
+        <action
+            android:id="@+id/action_petsFragment_to_dailyTaskFragment"
+            app:destination="@id/dailyTaskFragment" />
+        <action
+            android:id="@+id/action_petsFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.example.habitsbuilder.AchievementsFragment"
+        android:label="fragment_achievements_list"
+        tools:layout="@layout/fragment_achievements_list" >
+        <action
+            android:id="@+id/action_achievementsFragment_to_habitListFragment"
+            app:destination="@id/habitListFragment" />
+        <action
+            android:id="@+id/action_achievementsFragment_to_dailyTaskFragment"
+            app:destination="@id/dailyTaskFragment" />
+        <action
+            android:id="@+id/action_achievementsFragment_to_petsFragment"
             app:destination="@id/petsFragment" />
     </fragment>
 </navigation>
