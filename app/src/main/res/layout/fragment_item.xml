@@ -18,14 +18,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/habit_name"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:textStyle="bold"
             android:textSize="@dimen/habit_name_text_size"/>
 
         <TextView
             android:id="@+id/habit_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <ProgressBar
@@ -33,7 +36,9 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
             android:max="100"
             android:progress="50"/>
 
@@ -41,7 +46,9 @@
             android:id="@+id/habit_starting_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
             android:textColor="@color/colorHabitStartingDate"/>
 
     </LinearLayout>

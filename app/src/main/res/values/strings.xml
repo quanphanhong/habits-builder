@@ -20,4 +20,5 @@
     <string name="new_habit_title4">Frequency:</string>
     <string name="new_habit_title4_1"> a week</string>
     <string name="new_habit_title5">Reminder:</string>
+    <string name="new_habit_title5_1">Reminding Time</string>
 </resources>
