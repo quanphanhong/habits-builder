@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
     NavHostFragment fragment;
     NavController navController;
 
+    TextView mainTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
         menuItemsChanged();
     }
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         fragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         navController = Navigation.findNavController(this, R.id.fragment);
+
+        mainTitle = (TextView) findViewById(R.id.main_title);
     }
 
     private void menuItemsChanged() {
@@ -47,16 +51,23 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.DailyTask:
+                                mainTitle.setText(R.string.mode1);
                                 navController.navigate(R.id.dailyTaskFragment);
                                 break;
                             case R.id.HabitList:
+                                mainTitle.setText(R.string.mode2);
                                 navController.navigate(R.id.habitListFragment);
                                 break;
                             case R.id.NewHabit:
                                 openNewHabitActivity();
                                 break;
                             case R.id.Pet:
+                                mainTitle.setText(R.string.mode4);
                                 navController.navigate(R.id.petsFragment);
+                                break;
+                            case R.id.Achievements:
+                                mainTitle.setText(R.string.mode5);
+                                navController.navigate(R.id.achievementsFragment2);
                                 break;
                         }
                         return true;

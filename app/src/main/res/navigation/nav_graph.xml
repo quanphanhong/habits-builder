@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_dailyTaskFragment_to_petsFragment"
             app:destination="@id/petsFragment" />
-        <action
-            android:id="@+id/action_dailyTaskFragment_to_achievementsFragment"
-            app:destination="@id/achievementsFragment" />
     </fragment>
     <fragment
         android:id="@+id/habitListFragment"
@@ -31,9 +28,6 @@
         <action
             android:id="@+id/action_habitListFragment_to_petsFragment"
             app:destination="@id/petsFragment" />
-        <action
-            android:id="@+id/action_habitListFragment_to_achievementsFragment"
-            app:destination="@id/achievementsFragment" />
     </fragment>
     <fragment
         android:id="@+id/petsFragment"
@@ -46,23 +40,20 @@
         <action
             android:id="@+id/action_petsFragment_to_dailyTaskFragment"
             app:destination="@id/dailyTaskFragment" />
-        <action
-            android:id="@+id/action_petsFragment_to_achievementsFragment"
-            app:destination="@id/achievementsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/achievementsFragment"
+        android:id="@+id/achievementsFragment2"
         android:name="com.example.habitsbuilder.AchievementsFragment"
         android:label="fragment_achievements_list"
         tools:layout="@layout/fragment_achievements_list" >
         <action
-            android:id="@+id/action_achievementsFragment_to_habitListFragment"
-            app:destination="@id/habitListFragment" />
+            android:id="@+id/action_achievementsFragment2_to_petsFragment"
+            app:destination="@id/petsFragment" />
         <action
-            android:id="@+id/action_achievementsFragment_to_dailyTaskFragment"
+            android:id="@+id/action_achievementsFragment2_to_dailyTaskFragment"
             app:destination="@id/dailyTaskFragment" />
         <action
-            android:id="@+id/action_achievementsFragment_to_petsFragment"
-            app:destination="@id/petsFragment" />
+            android:id="@+id/action_achievementsFragment2_to_habitListFragment"
+            app:destination="@id/habitListFragment" />
     </fragment>
 </navigation>

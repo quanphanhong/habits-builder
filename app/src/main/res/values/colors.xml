@@ -7,4 +7,8 @@
 
     <!-- habit list -->
     <color name="colorHabitStartingDate">#FC0303</color>
+
+    <!-- achievements -->
+    <color name="colorRewardingButton_startColor">#E1EB34</color>
+    <color name="colorRewardingButton_endColor">#C2C93A</color>
 </resources>

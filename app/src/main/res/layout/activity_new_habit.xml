@@ -80,12 +80,12 @@
                     android:id="@+id/habit_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:layout_marginTop="@dimen/new_habit_text_margin"
+                    android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:layout_marginBottom="@dimen/new_habit_text_margin"
-                    android:maxLines="1"
-                    android:minLines="1"
-                    android:textSize="@dimen/new_habit_edit_text_size_large"/>
+                    android:hint="@string/new_habit_title1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/new_habit_edit_text_size_large" />
 
             </LinearLayout>
 
@@ -107,9 +107,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
-                    android:minLines="3"
+                    android:hint="@string/new_habit_title2"
                     android:maxLines="3"
-                    android:textSize="@dimen/new_habit_edit_text_size_small"/>
+                    android:minLines="3"
+                    android:textSize="@dimen/new_habit_edit_text_size_small" />
 
             </LinearLayout>
 
@@ -132,10 +133,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/new_habit_text_margin"
-                    android:textAlignment="textEnd"
+                    android:gravity="end"
+                    android:hint="@string/new_habit_title3"
                     android:inputType="datetime"
-                    android:textSize="@dimen/new_habit_edit_text_size_small"
-                    android:gravity="end" />
+                    android:singleLine="true"
+                    android:textAlignment="textEnd"
+                    android:textSize="@dimen/new_habit_edit_text_size_small" />
 
             </LinearLayout>
 
@@ -157,14 +160,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/new_habit_text_margin"
-                    android:textSize="@dimen/new_habit_edit_text_size_small"/>
+                    android:layout_gravity="center_vertical"
+                    android:spinnerMode="dialog"
+                    android:textSize="@dimen/new_habit_edit_text_size_small" />
 
                 <TextView
                     android:id="@+id/habit_frequency_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/new_habit_text_margin"
+                    android:layout_marginTop="@dimen/new_habit_text_margin"
+                    android:layout_marginBottom="@dimen/new_habit_text_margin"
                     android:text="@string/new_habit_title4_1"
+                    android:layout_gravity="center_vertical"
                     android:textSize="@dimen/new_habit_edit_text_size_small"/>
 
             </LinearLayout>
@@ -186,6 +193,7 @@
                     android:id="@+id/habit_alert_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/new_habit_text_margin"/>
 
             </LinearLayout>

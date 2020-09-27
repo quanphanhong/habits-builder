@@ -2,6 +2,7 @@
 <resources>
     <dimen name="text_margin">16dp</dimen>
 
+    <!-- daily task -->
     <dimen name="daily_task_habit_list_title">20sp</dimen>
     <dimen name="daily_task_layout_margin_left">20dp</dimen>
 
@@ -14,4 +15,11 @@
     <dimen name="new_habit_title_size">20sp</dimen>
     <dimen name="new_habit_edit_text_size_large">30sp</dimen>
     <dimen name="new_habit_edit_text_size_small">20sp</dimen>
+
+    <!-- achievements -->
+    <dimen name="achievements_item_margin">10dp</dimen>
+    <dimen name="achievements_icon_margin">20dp</dimen>
+    <dimen name="achievements_text_size_large">20sp</dimen>
+    <dimen name="achievements_text_size_small">10sp</dimen>
+    <dimen name="achievements_text_margin">8dp</dimen>
 </resources>

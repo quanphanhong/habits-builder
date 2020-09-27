@@ -50,7 +50,7 @@ public class NewHabit extends AppCompatActivity {
     }
 
     private void prepFrequency() {
-        String values[] = {"1 days", "2 days", "3 days", "4 days", "5 days", "6 days", "7 days"};
+        String values[] = {"1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "7 days"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
