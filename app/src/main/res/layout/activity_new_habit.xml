@@ -97,8 +97,8 @@
 
                 <ImageView
                     android:id="@+id/habit_description_image_view"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
                     android:src="@drawable/ic_writing"/>
 
@@ -132,7 +132,8 @@
                     android:id="@+id/habit_starting_day_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/new_habit_text_margin"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:gravity="end"
                     android:hint="@string/new_habit_title3"
                     android:inputType="datetime"
@@ -159,7 +160,7 @@
                     android:id="@+id/habit_frequency_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/new_habit_text_margin"
+                    android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:layout_gravity="center_vertical"
                     android:spinnerMode="dialog"
                     android:textSize="@dimen/new_habit_edit_text_size_small" />
@@ -178,7 +179,7 @@
 
             <LinearLayout
                 android:id="@+id/habit_alert_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/habit_frequency_layout">
 
@@ -194,30 +195,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/new_habit_text_margin"/>
+                    android:layout_marginRight="@dimen/new_habit_text_margin"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/habit_reminding_time_setting"
-                android:layout_below="@+id/habit_alert_layout"
-                android:layout_width="match_parent"
+                android:id="@+id/habit_alert_time_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_below="@+id/habit_frequency_layout"
+                android:layout_alignParentRight="true">
 
-                <TextView
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_alarmclock"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/new_habit_icon_margin"/>
+
+                <EditText
+                    android:id="@+id/alert_time_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_habit_title5_1"
-                    android:textSize="@dimen/new_habit_edit_text_size_small"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_horizontal"/>
-
-                <TimePicker
-                    android:id="@+id/reminding_time_picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:headerBackground="@android:color/darker_gray" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/new_habit_text_margin"
+                    android:editable="false"
+                    android:onClick="timePickerClicked"
+                    android:singleLine="true"
+                    android:text="11:11 AM"
+                    android:textSize="@dimen/new_habit_edit_text_size_small" />
 
             </LinearLayout>
 
