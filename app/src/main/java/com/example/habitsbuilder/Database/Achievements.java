@@ -10,9 +10,9 @@ public class Achievements implements Serializable {
     private String Image;
     private int State;
 
-    Achievements(){};
+    public Achievements(){};
 
-    Achievements(String name, String des, long rewId, String img, int state){
+    public Achievements(String name, String des, long rewId, String img, int state){
         Name = name;
         Description = des;
         RewardID = rewId;
@@ -27,6 +27,7 @@ public class Achievements implements Serializable {
     public String GetAchImg(){return Image;}
     public int GetAchState(){return State;}
 
+    public void SetAchId(long id){AchieveId = id;}
     public void SetAchName(String name){Name = name;}
     public void SetAchDes(String des){Description = des;}
     public void SetAchRewId(long rewId){RewardID = rewId;}

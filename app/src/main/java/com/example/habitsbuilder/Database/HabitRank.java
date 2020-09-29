@@ -8,9 +8,9 @@ public class HabitRank implements Serializable {
     private  String Description;
     private  String Image;
 
-    HabitRank(){};
+     public HabitRank(){};
 
-    HabitRank(String name, String des, String img){
+    public HabitRank(String name, String des, String img){
         Name = name;
         Description = des;
         Image = img;

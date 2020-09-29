@@ -7,9 +7,9 @@ public class Rewards implements Serializable {
     private long TreeID;
     private int WaterAmount;
 
-    Rewards(){};
+    public Rewards(){};
 
-    Rewards(int wateramount){
+    public Rewards(int wateramount){
         WaterAmount = wateramount;
     }
 }

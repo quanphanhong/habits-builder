@@ -10,9 +10,9 @@ public class Tree implements Serializable {
     private int Point;
     private String LastWateringDateTime;
 
-    Tree(){};
+    public Tree(){};
 
-    Tree(String name, int level, int state, int point, String lastw){
+    public Tree(String name, int level, int state, int point, String lastw){
         Name = name;
         Level = level;
         State = state;
@@ -43,6 +43,7 @@ public class Tree implements Serializable {
     public String getLastWateringDateTime() {
         return LastWateringDateTime;
     }
+
 
     public void setName(String name) {
         Name = name;
