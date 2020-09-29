@@ -134,9 +134,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
+                    android:editable="false"
+                    android:onClick="datePickerClicked"
                     android:gravity="end"
-                    android:hint="@string/new_habit_title3"
-                    android:inputType="datetime"
                     android:singleLine="true"
                     android:textAlignment="textEnd"
                     android:textSize="@dimen/new_habit_edit_text_size_small" />

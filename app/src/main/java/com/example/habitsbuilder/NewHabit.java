@@ -79,6 +79,49 @@ public class NewHabit extends AppCompatActivity {
         sp_frequency.setAdapter(adapter);
     }
 
+    public void datePickerClicked(View view) {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.date_picker, null);
+
+        final DatePicker datePicker = alertLayout.findViewById(R.id.date_picker);
+        //timePicker.setIs24HourView(true);
+        //timePicker.setHour(Integer.parseInt(tv_alertTime.getText().subSequence(0, 2).toString()));
+        //timePicker.setMinute(Integer.parseInt(tv_alertTime.getText().subSequence(3, 5).toString()));
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Choose Starting Date");
+        alert.setView(alertLayout);
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getBaseContext(), "You've just canceled the process!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String currentTime;
+
+                if (datePicker.getDayOfMonth() < 10)
+                    currentTime = "0" + datePicker.getDayOfMonth() + ":";
+                else
+                    currentTime = datePicker.getDayOfMonth() + ":";
+
+                if (datePicker.getMonth() < 10)
+                    currentTime += "0" + datePicker.getMonth();
+                else
+                    currentTime += datePicker.getMonth();
+
+                tv_alertTime.setText(currentTime);
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void timePickerClicked(View view) {
         LayoutInflater inflater = getLayoutInflater();
