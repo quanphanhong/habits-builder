@@ -1,5 +1,6 @@
 package com.example.habitsbuilder;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +10,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.navigation.Navigator;
 
 import com.example.habitsbuilder.Database.*;
 
@@ -33,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Create Habit Table
         query = "CREATE TABLE IF NOT EXISTS HABIT (" +
                 "HabitID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "NAME TEXT NOT NULL, " +
+                "Name TEXT NOT NULL, " +
                 "Description TEXT NOT NULL, " +
                 "CreatedDate TEXT, " +
                 "Streak INT, " +
@@ -103,5 +105,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void addHabit(Habit habit){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+    }
 
 }

@@ -15,4 +15,11 @@ public class HabitDay implements Serializable {
         State = state;
     }
 
+    public long getHabitId(){return HabitId;}
+    public Date getDate(){return Date;}
+    public int getState(){return State;}
+
+    public void setHabitId(long habitId){HabitId = habitId;}
+    public void setDate(Date date){Date = date;}
+    public void setState(int state){State = state;}
 }

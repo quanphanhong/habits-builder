@@ -27,24 +27,9 @@ public class Achievements implements Serializable {
     public String GetAchImg(){return Image;}
     public int GetAchState(){return State;}
 
-    public String SetAchName(String name){
-        Name = name;
-        return Name;
-    }
-    public String SetAchDes(String des){
-        Description = des;
-        return Description;
-    }
-    public long SetAchRewId(long rewId){
-        RewardID = rewId;
-        return RewardID;
-    }
-    public String SetAchImg(String img){
-        Image = img;
-        return Image;
-    }
-    public int SetAchState(int state){
-        State = state;
-        return State;
-    }
+    public void SetAchName(String name){Name = name;}
+    public void SetAchDes(String des){Description = des;}
+    public void SetAchRewId(long rewId){RewardID = rewId;}
+    public void SetAchImg(String img){Image = img;}
+    public void SetAchState(int state){State = state;}
 }

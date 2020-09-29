@@ -31,30 +31,12 @@ public class Habit implements Serializable {
     public long GetHabitRankId(){return RankID;}
     public int GetHabitState(){return State;}
 
-    public String SetHabitName(String name){
-        Name = name;
-        return Name;
-    }
-    public String SetHabitDes(String des){
-        Description = des;
-        return Description;
-    }
-    public Date SetHabitCreatedDate(Date date){
-        CreatedDate = date;
-        return CreatedDate;
-    }
-    public int SetHabitStreak(int streak){
-        Streak = streak;
-        return Streak;
-    }
-    public long SetHabitRankId(long rankId){
-        RankID = rankId;
-        return RankID;
-    }
-    public int SetHabitState(int state){
-        State = state;
-        return State;
-    }
+    public void SetHabitName(String name){Name = name;}
+    public void SetHabitDes(String des){Description = des;}
+    public void SetHabitCreatedDate(Date date){CreatedDate = date;}
+    public void SetHabitStreak(int streak){Streak = streak;}
+    public void SetHabitRankId(long rankId){RankID = rankId;}
+    public void SetHabitState(int state){State = state;}
 
 
 }
