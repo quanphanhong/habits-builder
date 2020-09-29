@@ -23,4 +23,38 @@ public class Habit implements Serializable {
         this.State = State;
     }
 
+    public long GetHabitId(){return ID;}
+    public String GetHabitName(){return Name;}
+    public String GetHabitDes(){return Description;}
+    public Date GetHabitCreatedDate(){return CreatedDate;}
+    public int GetHabitStreak(){return Streak;}
+    public long GetHabitRankId(){return RankID;}
+    public int GetHabitState(){return State;}
+
+    public String SetHabitName(String name){
+        Name = name;
+        return Name;
+    }
+    public String SetHabitDes(String des){
+        Description = des;
+        return Description;
+    }
+    public Date SetHabitCreatedDate(Date date){
+        CreatedDate = date;
+        return CreatedDate;
+    }
+    public int SetHabitStreak(int streak){
+        Streak = streak;
+        return Streak;
+    }
+    public long SetHabitRankId(long rankId){
+        RankID = rankId;
+        return RankID;
+    }
+    public int SetHabitState(int state){
+        State = state;
+        return State;
+    }
+
+
 }
