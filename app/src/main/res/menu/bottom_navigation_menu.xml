@@ -18,7 +18,7 @@
     <item
         android:id="@+id/Pet"
         android:title="@string/mode4"
-        android:icon="@drawable/ic_pet"/>
+        android:icon="@drawable/ic_sprout"/>
 
     <item
         android:id="@+id/Achievements"

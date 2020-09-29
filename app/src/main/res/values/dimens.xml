@@ -22,4 +22,15 @@
     <dimen name="achievements_text_size_large">20sp</dimen>
     <dimen name="achievements_text_size_small">10sp</dimen>
     <dimen name="achievements_text_margin">8dp</dimen>
+
+    <!-- pets -->
+    <dimen name="pets_icon_margin">20dp</dimen>
+    <dimen name="pets_text_margin">5dp</dimen>
+    <dimen name="pets_text_size_large">30sp</dimen>
+    <dimen name="pets_text_size_small">20sp</dimen>
+    <dimen name="pets_progressbar_marginTop">5dp</dimen>
+    <dimen name="pets_progressbar_marginBottom">5dp</dimen>
+    <dimen name="pets_progressbar_marginRight">20dp</dimen>
+    <dimen name="pet_width">300dp</dimen>
+    <dimen name="pet_height">300dp</dimen>
 </resources>
