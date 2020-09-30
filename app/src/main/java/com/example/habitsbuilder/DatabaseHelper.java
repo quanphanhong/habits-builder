@@ -223,4 +223,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return TreeList;
     }
 
+    public void deleteTree(Tree tree){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("TREES", "TreeId=?", new String[]{String.valueOf(tree.getTreeId())});
+        db.close();
+    }
+
+    public void deleteHabit(Habit habit){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("HABIT", "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
+        db.close();
+    }
+
+    public void deleteAchievement(Achievements ach){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("ACHIEVEMENTS", "AchievementID=?", new String[]{String.valueOf(ach.GetAchId())});
+        db.close();
+    }
+
+    public void updateHabit(Habit habit){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Name", habit.GetHabitName());
+        values.put("Description", habit.GetHabitDes());
+        values.put("CreatedDay", habit.GetHabitCreatedDate().toString());
+        values.put("Streak", habit.GetHabitStreak());
+        values.put("State", habit.GetHabitState());
+        values.put("RankID", habit.GetHabitRankId());
+
+        db.update("HABIT", values, "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
+        db.close();
+    }
+
 }
