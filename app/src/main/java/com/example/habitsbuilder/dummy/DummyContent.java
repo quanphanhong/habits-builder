@@ -38,7 +38,7 @@ public class DummyContent {
     }
 
     private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Description " + position, "Level No." + position,"Habit No." + position, "Start: Day No." + position, makeDetails(position));
+        return new DummyItem(String.valueOf(position), "Habit No." + position, "Description No." + position,"Level No." + position, "Start: Day No." + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -61,7 +61,7 @@ public class DummyContent {
         public final String text_level;
         public final String details;
 
-        public DummyItem(String id, String habit_description, String text_level, String habit_name, String habit_starting_day, String details) {
+        public DummyItem(String id, String habit_name, String habit_description, String text_level, String habit_starting_day, String details) {
             this.id = id;
             this.habit_name = habit_name;
             this.habit_description = habit_description;
@@ -101,7 +101,7 @@ public class DummyContent {
     }
 
     private static DummyAchievement DummyAchievement_createDummyItem(int position) {
-        return new DummyAchievement(String.valueOf(position), "Description " + position, "Level No." + position,"Habit No." + position, "Start: Day No." + position, DummyAchievement_makeDetails(position));
+        return new DummyAchievement(String.valueOf(position), "Achievement No." + position, "Level Description No." + position, position, position, DummyAchievement_makeDetails(position));
     }
 
     private static String DummyAchievement_makeDetails(int position) {
@@ -118,18 +118,18 @@ public class DummyContent {
      */
     public static class DummyAchievement {
         public final String id;
-        public final String habit_name;
-        public final String habit_description;
-        public final String habit_starting_day;
-        public final String content;
+        public final String achievement_name;
+        public final String achievement_description;
+        public final long achievement_rewards_treeid;
+        public final int achievement_rewards_water;
         public final String details;
 
-        public DummyAchievement(String id, String habit_description, String text_level, String habit_name, String habit_starting_day, String details) {
+        public DummyAchievement(String id, String achievement_name, String achievement_description, long achievement_rewards_treeid, int achievement_rewards_water, String details) {
             this.id = id;
-            this.habit_name = habit_name;
-            this.habit_description = habit_description;
-            this.habit_starting_day = habit_starting_day;
-            this.content = text_level;
+            this.achievement_name = achievement_name;
+            this.achievement_description = achievement_description;
+            this.achievement_rewards_treeid = achievement_rewards_treeid;
+            this.achievement_rewards_water = achievement_rewards_water;
             this.details = details;
         }
 

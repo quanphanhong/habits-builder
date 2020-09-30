@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:elevation="8dp"
         android:layout_weight="5"
         android:orientation="vertical">
 
@@ -39,13 +40,48 @@
 
     </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
-        android:layout_margin="@dimen/achievements_icon_margin"
-        android:layout_weight="1"
-        android:text="+100"
-        android:background="@drawable/rewarding_button_background"/>
+        android:layout_marginRight="@dimen/achievements_icon_margin"
+        android:background="@drawable/rewarding_button_background">
+
+        <TextView
+            android:id="@+id/water_amount_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/achievements_text_size_small"
+            android:layout_marginTop="@dimen/achievements_text_margin"
+            android:layout_marginBottom="@dimen/achievements_text_margin"
+            android:layout_marginLeft="@dimen/achievements_text_margin"
+            android:text="+100"
+            android:textColor="#000000"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_drop"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/number_of_trees_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/achievements_text_size_small"
+            android:layout_marginTop="@dimen/achievements_text_margin"
+            android:layout_marginBottom="@dimen/achievements_text_margin"
+            android:layout_marginLeft="@dimen/achievements_text_margin"
+            android:text="+100"
+            android:textColor="#000000"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_sprout"
+            android:layout_marginRight="@dimen/achievements_text_margin"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
 
 </LinearLayout>
