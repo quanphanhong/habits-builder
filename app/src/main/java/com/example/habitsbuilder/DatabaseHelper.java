@@ -7,6 +7,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,59 @@ import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "HabitManager.db";
+
+    private static final String CREATE_HABIT_RANK_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS HABITRANK (" +
+            "RankID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Name TEXT NOT NULL, " +
+            "Description TEXT, " +
+            "Image TEXT" +
+            ")";
+
+    private static final String CREATE_HABIT_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS HABIT (" +
+            "HabitID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Name TEXT NOT NULL, " +
+            "Description TEXT NOT NULL, " +
+            "CreatedDate TEXT, " +
+            "Streak INTEGER, " +
+            "RankID DECIMAL, " +
+            "State INTEGER, " +
+            "FOREIGN KEY(RankID) REFERENCES HABITRANK(RankID)" +
+            ")";
+
+    private static final String CREATE_HABIT_DAY_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS HABITDAY (" +
+            "HabitID INTEGER, " +
+            "Date TEXT, " +
+            "State INTEGER," +
+            "PRIMARY KEY(HabitID, Date)," +
+            "FOREIGN KEY(HabitID) REFERENCES HABIT(HabitID)" +
+            ")";
+
+    private static final String CREATE_TREES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS TREES(" +
+            "TreeID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Name TEXT NOT NULL, " +
+            "Level INTEGER, " +
+            "State INTEGER" +
+            ")";
+
+    private static final String CREATE_REWARDS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS REWARDS(" +
+            "RewardID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "TreeID DECIMAL, " +
+            "WaterAmount INTEGER, " +
+            "FOREIGN KEY(TreeID) REFERENCES TREES(TreeID)" +
+            ")";
+
+    private static final String CREATE_ACHIEVEMENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS ACHIEVEMENTS(" +
+            "AchievementID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Name TEXT NOT NULL, " +
+            "Description TEXT, " +
+            "RewardID DECIMAL, " +
+            "Image TEXT, " +
+            "State INTEGER, " +
+            "FOREIGN KEY(RewardID) REFERENCES REWARDS(RewardID)" +
+            ")";
+
     public DatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -34,94 +88,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, name, version, openParams);
     }
 
+    public DatabaseHelper(Context context)  {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query;
-
-        // Create HabitRank Table
-        query = "CREATE TABLE IF NOT EXISTS HABITRANK (" +
-                "RankID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "Name TEXT NOT NULL, " +
-                "Description TEXT, " +
-                "Image TEXT" +
-                ")";
-
-        db.execSQL(query);
-
-        // Create Habit Table
-        query = "CREATE TABLE IF NOT EXISTS HABIT (" +
-                "HabitID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "Name TEXT NOT NULL, " +
-                "Description TEXT NOT NULL, " +
-                "CreatedDate TEXT, " +
-                "Streak INT, " +
-                "RankID DECIMAL, " +
-                "State INT, " +
-                "FOREIGN KEY(RankID) REFERENCES HABITRANK(RankID)" +
-                ")";
-
-        /*
-            state = 0 - queued, 1 - on progress, 2 - completed
-         */
-
-        db.execSQL(query);
-
-        // Create HabitDay Table
-        query = "CREATE TABLE IF NOT EXISTS HABITDAY (" +
-                "HabitID DECIMAL, " +
-                "Date TEXT, " +
-                "State INT," +
-                "PRIMARY KEY(HabitID, Date)," +
-                "FOREIGN KEY(HabitID) REFERENCES HABIT(HabitID)" +
-                ")";
-
-        db.execSQL(query);
-
-        // Create Trees Table
-        query = "CREATE TABLE IF NOT EXISTS TREES(" +
-                "TreeID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "Name TEXT NOT NULL, " +
-                "Level INT, " +
-                "State INT" +
-                ")";
-
-        db.execSQL(query);
-
-        // Create Rewards Table
-        query = "CREATE TABLE IF NOT EXISTS REWARDS(" +
-                "RewardID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "TreeID DECIMAL, " +
-                "WaterAmount INT, " +
-                "FOREIGN KEY(TreeID) REFERENCES TREES(TreeID)" +
-                ")";
-
-        db.execSQL(query);
-
-        // Create Achievements Table
-        query = "CREATE TABLE IF NOT EXISTS ACHIEVEMENTS(" +
-                "AchievementID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "Name TEXT NOT NULL, " +
-                "Description TEXT, " +
-                "RewardID DECIMAL, " +
-                "Image TEXT, " +
-                "State INT, " +
-                "FOREIGN KEY(RewardID) REFERENCES REWARDS(RewardID)" +
-                ")";
-
-        db.execSQL(query);
+        db.execSQL(CREATE_HABIT_RANK_TABLE_QUERY);
+        db.execSQL(CREATE_HABIT_TABLE_QUERY);
+        db.execSQL(CREATE_HABIT_DAY_TABLE_QUERY);
+        db.execSQL(CREATE_TREES_TABLE_QUERY);
+        db.execSQL(CREATE_REWARDS_TABLE_QUERY);
+        db.execSQL(CREATE_ACHIEVEMENTS_TABLE_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop table
+        db.execSQL("DROP TABLE IF EXISTS ACHIEVEMENTS");
+        db.execSQL("DROP TABLE IF EXISTS REWARDS");
+        db.execSQL("DROP TABLE IF EXISTS TREES");
+        db.execSQL("DROP TABLE IF EXISTS HABITDAY");
+        db.execSQL("DROP TABLE IF EXISTS HABIT");
+        db.execSQL("DROP TABLE IF EXISTS HABITRANK");
 
+        // Recreate
+        onCreate(db);
+    }
+
+    public void createDefaultRanksIfNeeded() {
+        int count = this.getRankCount();
+        if (count == 0) {
+            HabitRank rank1 = new HabitRank("Rank 1", "Beginner", "ic_beg");
+            HabitRank rank2 = new HabitRank("Rank 2", "Intermediate", "ic_int");
+            HabitRank rank3 = new HabitRank("Rank 3", "Advanced", "ic_adv");
+
+            addRank(rank1);
+            addRank(rank2);
+            addRank(rank3);
+        }
     }
 
     public void addHabit(Habit habit){
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put("Name", habit.GetHabitName());
         values.put("Description", habit.GetHabitDes());
-        values.put("CreatedDay", habit.GetHabitCreatedDate().toString());
+        values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
         values.put("Streak", habit.GetHabitStreak());
         values.put("State", habit.GetHabitState());
         values.put("RankID", habit.GetHabitRankId());
@@ -166,7 +180,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Habit>getAllHabit(){
+    public List<Habit> getAllHabit(){
         List<Habit> habitList = new ArrayList<Habit>();
         String selectQuery = "SELECT * FROM HABIT";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -244,6 +258,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("TREES", "TreeId=?", new String[]{String.valueOf(tree.getTreeId())});
         db.close();
+    }
+
+    public int getRankCount() {
+        String countQuery = "SELECT  * FROM HABITRANK";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        // return count
+        return count;
     }
 
     public void deleteHabit(Habit habit){

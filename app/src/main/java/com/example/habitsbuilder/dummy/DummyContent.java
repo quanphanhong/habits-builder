@@ -1,5 +1,7 @@
 package com.example.habitsbuilder.dummy;
 
+import com.example.habitsbuilder.Database.Habit;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,22 +25,13 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = 10;
-
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
-    }
-
-    private static void addItem(DummyItem item) {
+    public static void addItem(DummyItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Habit No." + position, "Description No." + position,"Level No." + position, "Start: Day No." + position, makeDetails(position));
+    public static DummyItem createDummyItem(Habit habit) {
+        return new DummyItem(String.valueOf(habit.GetHabitId()), habit.GetHabitName(), habit.GetHabitDes(),String.valueOf(habit.GetHabitRankId()), habit.GetHabitCreatedDate());
     }
 
     private static String makeDetails(int position) {
@@ -59,20 +52,13 @@ public class DummyContent {
         public final String habit_description;
         public final String habit_starting_day;
         public final String text_level;
-        public final String details;
 
-        public DummyItem(String id, String habit_name, String habit_description, String text_level, String habit_starting_day, String details) {
+        public DummyItem(String id, String habit_name, String habit_description, String text_level, String habit_starting_day) {
             this.id = id;
             this.habit_name = habit_name;
             this.habit_description = habit_description;
             this.habit_starting_day = habit_starting_day;
             this.text_level = text_level;
-            this.details = details;
-        }
-
-        @Override
-        public String toString() {
-            return details;
         }
     }
 

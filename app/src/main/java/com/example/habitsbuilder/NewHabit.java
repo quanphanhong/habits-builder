@@ -3,9 +3,11 @@ package com.example.habitsbuilder;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -24,12 +27,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.habitsbuilder.Database.Habit;
+
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class NewHabit extends AppCompatActivity {
 
+    EditText et_habitName;
+    EditText et_description;
+    EditText et_startingDate;
     Spinner sp_frequency;
     LinearLayout panel_alert;
     Switch sw_alert;
@@ -45,6 +53,9 @@ public class NewHabit extends AppCompatActivity {
     }
 
     private void init() {
+        et_habitName = (EditText) findViewById(R.id.habit_name_edit_text);
+        et_description = (EditText) findViewById(R.id.habit_description_edit_text);
+        et_startingDate = (EditText) findViewById(R.id.habit_starting_day_edit_text);
         sp_frequency = (Spinner) findViewById(R.id.habit_frequency_spinner);
         panel_alert = (LinearLayout) findViewById(R.id.habit_alert_time_layout);
         tv_alertTime = (TextView) findViewById(R.id.alert_time_text_view);
@@ -105,16 +116,18 @@ public class NewHabit extends AppCompatActivity {
                 String currentTime;
 
                 if (datePicker.getDayOfMonth() < 10)
-                    currentTime = "0" + datePicker.getDayOfMonth() + ":";
+                    currentTime = "0" + datePicker.getDayOfMonth() + "/";
                 else
-                    currentTime = datePicker.getDayOfMonth() + ":";
+                    currentTime = datePicker.getDayOfMonth() + "/";
 
                 if (datePicker.getMonth() < 10)
-                    currentTime += "0" + datePicker.getMonth();
+                    currentTime += "0" + datePicker.getMonth() + "/";
                 else
-                    currentTime += datePicker.getMonth();
+                    currentTime += datePicker.getMonth() + "/";
 
-                tv_alertTime.setText(currentTime);
+                currentTime += datePicker.getYear();
+
+                et_startingDate.setText(currentTime);
             }
         });
 
@@ -166,5 +179,29 @@ public class NewHabit extends AppCompatActivity {
         dialog.show();
     }
 
-    public void exitButtonClicked(View view) { finish(); }
+    public void newHabitClicked(View view) {
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        db.createDefaultRanksIfNeeded();
+
+        Habit new_habit = new Habit(
+                et_habitName.getText().toString(),
+                et_description.getText().toString(),
+                et_startingDate.getText().toString(),
+                0,
+                0,
+                0
+        );
+
+        db.addHabit(new_habit);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("result", "saved");
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
+    }
+
+    public void exitButtonClicked(View view) {
+        Intent resultIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, resultIntent);
+        finish();
+    }
 }
