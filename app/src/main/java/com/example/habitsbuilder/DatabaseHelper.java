@@ -256,4 +256,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateTree(Tree tree){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Name", tree.getName());
+        values.put("Level", tree.getLevel());
+        values.put("State", tree.getState());
+
+        db.update("TREES", values, "TreeId=?", new String[]{String.valueOf(tree.getTreeId())});
+        db.close();
+    }
+
+    public void updateAchievement(Achievements ach){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Name", ach.GetAchName());
+        values.put("Image", ach.GetAchImg());
+        values.put("Description", ach.GetAchDes());
+        values.put("State", ach.GetAchState());
+        values.put("RewardID", ach.GetAchRewId());
+
+        db.update("ACHIEVEMENTS", values, "AchievementID=?", new String[]{String.valueOf(ach.GetAchId())});
+        db.close();
+    }
+
 }
