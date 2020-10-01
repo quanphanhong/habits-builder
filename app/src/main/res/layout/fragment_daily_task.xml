@@ -36,33 +36,15 @@
             android:src="@drawable/bg_grey"
             android:visibility="invisible" />
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/habit_list_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_below="@+id/habit_list_text"
-            android:scrollbarStyle="insideOverlay">
-
-            <LinearLayout
-                android:id="@+id/habit_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="@dimen/daily_task_layout_margin_left">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="for data binding" />
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+            android:scrollbarStyle="insideOverlay"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".HabitListFragment"
+            tools:listitem="@layout/fragment_item"/>
 
     </RelativeLayout>
 

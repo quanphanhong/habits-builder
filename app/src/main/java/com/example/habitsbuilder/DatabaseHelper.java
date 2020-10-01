@@ -38,6 +38,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query;
 
+        // Create HabitRank Table
+        query = "CREATE TABLE IF NOT EXISTS HABITRANK (" +
+                "RankID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
+                "Name TEXT NOT NULL, " +
+                "Description TEXT, " +
+                "Image TEXT" +
+                ")";
+
+        db.execSQL(query);
+
         // Create Habit Table
         query = "CREATE TABLE IF NOT EXISTS HABIT (" +
                 "HabitID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
@@ -46,18 +56,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "CreatedDate TEXT, " +
                 "Streak INT, " +
                 "RankID DECIMAL, " +
-                "State INT" +
+                "State INT, " +
+                "FOREIGN KEY(RankID) REFERENCES HABITRANK(RankID)" +
                 ")";
 
-        db.execSQL(query);
-
-        // Create HabitRank Table
-        query = "CREATE TABLE IF NOT EXISTS HABITRANK (" +
-                "RankID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
-                "Name TEXT NOT NULL, " +
-                "Description TEXT, " +
-                "Image TEXT" +
-                ")";
+        /*
+            state = 0 - queued, 1 - on progress, 2 - completed
+         */
 
         db.execSQL(query);
 
@@ -74,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Create Trees Table
         query = "CREATE TABLE IF NOT EXISTS TREES(" +
-                "TreeId DECIMAL PRIMARY KEY AUTOINCREMENT, " +
+                "TreeID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
                 "Name TEXT NOT NULL, " +
                 "Level INT, " +
                 "State INT" +
@@ -84,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Create Rewards Table
         query = "CREATE TABLE IF NOT EXISTS REWARDS(" +
-                "RewardId DECIMAL PRIMARY KEY AUTOINCREMENT, " +
+                "RewardID DECIMAL PRIMARY KEY AUTOINCREMENT, " +
                 "TreeID DECIMAL, " +
                 "WaterAmount INT, " +
                 "FOREIGN KEY(TreeID) REFERENCES TREES(TreeID)" +
@@ -146,6 +151,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("State", tree.getState());
 
         db.insert("TREES", null, values);
+        db.close();
+    }
+
+    public void addRank(HabitRank rank) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Name", rank.getName());
+        values.put("Description", rank.getDescription());
+        values.put("Image", rank.getImage());
+
+        db.insert("HABITRANK", null, values);
         db.close();
     }
 
@@ -241,6 +258,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteRank(HabitRank rank) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("HABITRANK", "RankID=?", new String[]{String.valueOf(rank.getRankId())});
+    }
+
     public void updateHabit(Habit habit){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -282,4 +304,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateRank(HabitRank rank) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Name", rank.getName());
+        values.put("Description", rank.getDescription());
+        values.put("Image", rank.getImage());
+
+        db.update("HABITRANK", values, "RankID=?", new String[]{String.valueOf(rank.getRankId())});
+    }
 }

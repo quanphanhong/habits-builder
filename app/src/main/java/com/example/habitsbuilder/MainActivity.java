@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout habit_list;
+    //LinearLayout habit_list;
     BottomNavigationView navigationView;
     NavHostFragment fragment;
     NavController navController;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        habit_list = (LinearLayout) findViewById(R.id.habit_list);
+        //habit_list = (LinearLayout) findViewById(R.id.habit_list);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation_bar);
 
         fragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
