@@ -188,7 +188,7 @@ public class NewHabit extends AppCompatActivity {
                 et_description.getText().toString(),
                 et_startingDate.getText().toString(),
                 0,
-                0,
+                1,
                 0
         );
 

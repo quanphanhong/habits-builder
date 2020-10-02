@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.habitsbuilder.dummy.DummyContent.DummyItem;
@@ -37,6 +38,39 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         holder.mHabitDescription.setText(mValues.get(position).habit_description);
         holder.mHabitStartingDay.setText(mValues.get(position).habit_starting_day);
         holder.mTextLevel.setText(mValues.get(position).habit_rank);
+
+        switch (mValues.get(position).habit_rank_image) {
+            case "ic_lv1":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv1);
+                break;
+            case "ic_lv2":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv2);
+                break;
+            case "ic_lv3":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv3);
+                break;
+            case "ic_lv4":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv4);
+                break;
+            case "ic_lv5":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv5);
+                break;
+            case "ic_lv6":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv6);
+                break;
+            case "ic_lv7":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv7);
+                break;
+            case "ic_lv8":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv8);
+                break;
+            case "ic_lv9":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv9);
+                break;
+            case "ic_lv10":
+                holder.mImageLevel.setImageResource(R.drawable.ic_lv10);
+                break;
+        }
     }
 
     @Override
@@ -50,6 +84,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         public final TextView mHabitDescription;
         public final TextView mHabitStartingDay;
         public final TextView mTextLevel;
+        public final ImageView mImageLevel;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
@@ -59,6 +94,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
             mHabitDescription = (TextView) view.findViewById(R.id.habit_description);
             mHabitStartingDay = (TextView) view.findViewById(R.id.habit_starting_day);
             mTextLevel = (TextView) view.findViewById(R.id.text_level);
+            mImageLevel = (ImageView) view.findViewById(R.id.image_level);
         }
 
         @Override

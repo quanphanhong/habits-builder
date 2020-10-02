@@ -119,14 +119,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createDefaultRanksIfNeeded() {
         int count = this.getRankCount();
         if (count == 0) {
-            HabitRank rank1 = new HabitRank("Rank 1", "Beginner", "ic_beg");
-            HabitRank rank2 = new HabitRank("Rank 2", "Intermediate", "ic_int");
-            HabitRank rank3 = new HabitRank("Rank 3", "Advanced", "ic_adv");
-
-            addRank(rank1);
-            addRank(rank2);
-            addRank(rank3);
+            for (int i = 1; i <= 10; i++) {
+                HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i));
+                this.addRank(rank);
+            }
         }
+    }
+
+    public void createDefaultAchievementsIfNeeded() {
+
     }
 
     public void addHabit(Habit habit){
@@ -261,9 +262,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public HabitRank getRank(int id) {
-        id++;
 
-        String query = "SELECT * FROM HABITRANK";
+        String query = "SELECT * FROM HABITRANK WHERE RankID=" + id;
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);

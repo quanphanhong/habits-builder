@@ -34,7 +34,7 @@ public class DummyContent {
     }
 
     public static DummyItem createDummyItem(Habit habit, HabitRank rank) {
-        return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetHabitStreak(), rank.getName(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
+        return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetHabitStreak(), rank.getName(), rank.getImage(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
     }
 
     /**
@@ -47,14 +47,16 @@ public class DummyContent {
         public final String habit_starting_day;
         public final int habit_streak;
         public final String habit_rank;
+        public final String habit_rank_image;
         public final int habit_state;
 
-        public DummyItem(int id, String habit_name, String habit_description, int habit_streak, String habit_rank, int habit_state, String habit_starting_day) {
+        public DummyItem(int id, String habit_name, String habit_description, int habit_streak, String habit_rank, String habit_rank_image, int habit_state, String habit_starting_day) {
             this.id = id;
             this.habit_name = habit_name;
             this.habit_description = habit_description;
             this.habit_streak = habit_streak;
             this.habit_rank = habit_rank;
+            this.habit_rank_image = habit_rank_image;
             this.habit_starting_day = habit_starting_day;
             this.habit_state = habit_state;
         }
