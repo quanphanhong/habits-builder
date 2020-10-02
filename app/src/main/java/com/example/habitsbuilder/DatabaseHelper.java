@@ -194,7 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetHabitDes(cursor.getString(2));
                 habit.SetHabitCreatedDate(cursor.getString(3));
                 habit.SetHabitStreak(cursor.getInt(4));
-                habit.SetHabitRankId(cursor.getLong(5));
+                habit.SetHabitRankId(cursor.getInt(5));
                 habit.SetHabitState(cursor.getInt(6));
 
                 // Adding habit to list
@@ -219,7 +219,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ach.SetAchDes(cursor.getString(2));
                 ach.SetAchImg(cursor.getString(3));
                 ach.SetAchState(cursor.getInt(4));
-                ach.SetAchRewId(cursor.getLong(5));
+                ach.SetAchRewId(cursor.getInt(5));
 
 
                 // Adding habit to list
@@ -258,6 +258,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("TREES", "TreeId=?", new String[]{String.valueOf(tree.getTreeId())});
         db.close();
+    }
+
+    public HabitRank getRank(int id) {
+        id++;
+
+        String query = "SELECT * FROM HABITRANK";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            try {
+                HabitRank rank = new HabitRank();
+                rank.setRankId(Integer.parseInt(cursor.getString(0)));
+                rank.setName(cursor.getString(1));
+                rank.setDescription(cursor.getString(2));
+                rank.setImage(cursor.getString(3));
+
+                return rank;
+            } catch (Exception ex) {
+                Log.i("Error", "Error while loading rank from database");
+            }
+        }
+
+        return null;
     }
 
     public int getRankCount() {

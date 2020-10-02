@@ -3,7 +3,7 @@ package com.example.habitsbuilder.Database;
 import java.io.Serializable;
 
 public class Tree implements Serializable {
-    private long TreeId;
+    private int TreeId;
     private String Name;
     private int Level;
     private int State;
@@ -20,7 +20,7 @@ public class Tree implements Serializable {
         LastWateringDateTime = lastw;
     }
 
-    public long getTreeId() {
+    public int getTreeId() {
         return TreeId;
     }
 
@@ -44,7 +44,6 @@ public class Tree implements Serializable {
         return LastWateringDateTime;
     }
 
-
     public void setName(String name) {
         Name = name;
     }
@@ -65,7 +64,7 @@ public class Tree implements Serializable {
         LastWateringDateTime = lastWateringDateTime;
     }
 
-    public void setTreeId(long treeId) {
+    public void setTreeId(int treeId) {
         TreeId = treeId;
     }
 }

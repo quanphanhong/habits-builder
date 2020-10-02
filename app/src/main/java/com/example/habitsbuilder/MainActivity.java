@@ -18,7 +18,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.habitsbuilder.Database.Achievements;
 import com.example.habitsbuilder.Database.Habit;
+import com.example.habitsbuilder.Database.HabitRank;
 import com.example.habitsbuilder.dummy.DummyContent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
         updateHabitList();
+        updateAchievementList();
         menuItemsChanged();
     }
 
@@ -59,7 +62,18 @@ public class MainActivity extends AppCompatActivity {
         DummyContent.ITEMS.clear();
         DummyContent.ITEM_MAP.clear();
         for (Habit habit : habitList)
-            DummyContent.addItem(DummyContent.createDummyItem(habit));
+            DummyContent.addItem(DummyContent.createDummyItem(habit, db.getRank(habit.GetHabitRankId())));
+    }
+
+    private void updateAchievementList() {
+        DatabaseHelper db = new DatabaseHelper((getApplicationContext()));
+        List<Achievements> achievementsList = db.getAllAchievements();
+
+        DummyContent.DummyAchievement_ITEMS.clear();
+        DummyContent.DummyAchievement_ITEM_MAP.clear();
+
+        for (Achievements achievement : achievementsList)
+            DummyContent.DummyAchievement_addItem(DummyContent.DummyAchievement_createDummyItem(achievement));
     }
 
     private void menuItemsChanged() {

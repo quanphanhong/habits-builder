@@ -3,7 +3,7 @@ package com.example.habitsbuilder.Database;
 import java.io.Serializable;
 
 public class HabitRank implements Serializable {
-    private  long RankId;
+    private  int RankId;
     private  String Name;
     private  String Description;
     private  String Image;
@@ -16,7 +16,7 @@ public class HabitRank implements Serializable {
         Image = img;
     }
 
-    public long getRankId() {
+    public int getRankId() {
         return RankId;
     }
 
@@ -30,5 +30,21 @@ public class HabitRank implements Serializable {
 
     public String getImage() {
         return Image;
+    }
+
+    public void setRankId(int rankId) {
+        RankId = rankId;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }

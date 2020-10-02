@@ -36,7 +36,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         holder.mHabitName.setText(mValues.get(position).habit_name);
         holder.mHabitDescription.setText(mValues.get(position).habit_description);
         holder.mHabitStartingDay.setText(mValues.get(position).habit_starting_day);
-        holder.mTextLevel.setText(mValues.get(position).text_level);
+        holder.mTextLevel.setText(mValues.get(position).habit_rank);
     }
 
     @Override

@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Habit implements Serializable {
-    private long ID;
+    private int ID;
     private String Name;
     private String Description;
     private String CreatedDate;
     private int Streak;
-    private long RankID;
+    private int RankID;
     private int State;
 
     public Habit() {}
 
-    public Habit(String Name, String Description, String CreatedDate, int Streak, long RankID, int State) {
+    public Habit(String Name, String Description, String CreatedDate, int Streak, int RankID, int State) {
         this.Name = Name;
         this.Description = Description;
         this.CreatedDate = CreatedDate;
@@ -23,20 +23,20 @@ public class Habit implements Serializable {
         this.State = State;
     }
 
-    public long GetHabitId(){return ID;}
+    public int GetHabitId(){return ID;}
     public String GetHabitName(){return Name;}
     public String GetHabitDes(){return Description;}
     public String GetHabitCreatedDate(){return CreatedDate;}
     public int GetHabitStreak(){return Streak;}
-    public long GetHabitRankId(){return RankID;}
+    public int GetHabitRankId(){return RankID;}
     public int GetHabitState(){return State;}
 
-    public void SetHabitId(long id){ID = id;}
+    public void SetHabitId(int id){ID = id;}
     public void SetHabitName(String name){Name = name;}
     public void SetHabitDes(String des){Description = des;}
     public void SetHabitCreatedDate(String date){CreatedDate = date;}
     public void SetHabitStreak(int streak){Streak = streak;}
-    public void SetHabitRankId(long rankId){RankID = rankId;}
+    public void SetHabitRankId(int rankId){RankID = rankId;}
     public void SetHabitState(int state){State = state;}
 
 

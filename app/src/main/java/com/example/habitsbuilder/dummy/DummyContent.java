@@ -1,6 +1,9 @@
 package com.example.habitsbuilder.dummy;
 
+import com.example.habitsbuilder.Database.Achievements;
 import com.example.habitsbuilder.Database.Habit;
+import com.example.habitsbuilder.Database.HabitRank;
+import com.example.habitsbuilder.Database.Rewards;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,42 +26,37 @@ public class DummyContent {
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<Integer, DummyItem> ITEM_MAP = new HashMap<Integer, DummyItem>();
 
     public static void addItem(DummyItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    public static DummyItem createDummyItem(Habit habit) {
-        return new DummyItem(String.valueOf(habit.GetHabitId()), habit.GetHabitName(), habit.GetHabitDes(),String.valueOf(habit.GetHabitRankId()), habit.GetHabitCreatedDate());
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+    public static DummyItem createDummyItem(Habit habit, HabitRank rank) {
+        return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetHabitStreak(), rank.getName(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
     }
 
     /**
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
-        public final String id;
+        public final int id;
         public final String habit_name;
         public final String habit_description;
         public final String habit_starting_day;
-        public final String text_level;
+        public final int habit_streak;
+        public final String habit_rank;
+        public final int habit_state;
 
-        public DummyItem(String id, String habit_name, String habit_description, String text_level, String habit_starting_day) {
+        public DummyItem(int id, String habit_name, String habit_description, int habit_streak, String habit_rank, int habit_state, String habit_starting_day) {
             this.id = id;
             this.habit_name = habit_name;
             this.habit_description = habit_description;
+            this.habit_streak = habit_streak;
+            this.habit_rank = habit_rank;
             this.habit_starting_day = habit_starting_day;
-            this.text_level = text_level;
+            this.habit_state = habit_state;
         }
     }
 
@@ -70,58 +68,38 @@ public class DummyContent {
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyAchievement> DummyAchievement_ITEM_MAP = new HashMap<String, DummyAchievement>();
+    public static final Map<Integer, DummyAchievement> DummyAchievement_ITEM_MAP = new HashMap<Integer, DummyAchievement>();
 
-    private static final int DummyAchievement_COUNT = 10;
-
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= DummyAchievement_COUNT; i++) {
-            DummyAchievement_addItem(DummyAchievement_createDummyItem(i));
-        }
-    }
-
-    private static void DummyAchievement_addItem(DummyAchievement item) {
+    public static void DummyAchievement_addItem(DummyAchievement item) {
         DummyAchievement_ITEMS.add(item);
         DummyAchievement_ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyAchievement DummyAchievement_createDummyItem(int position) {
-        return new DummyAchievement(String.valueOf(position), "Achievement No." + position, "Level Description No." + position, position, position, DummyAchievement_makeDetails(position));
-    }
-
-    private static String DummyAchievement_makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+    public static DummyAchievement DummyAchievement_createDummyItem(Achievements achievements) {
+        Rewards rewards = new Rewards();
+        return new DummyAchievement(achievements.GetAchId(), achievements.GetAchName(), achievements.GetAchDes(), rewards.getTreeID(), rewards.getWaterAmount(), achievements.GetAchImg(), achievements.GetAchState());
     }
 
     /**
      * A dummy item representing a piece of content.
      */
     public static class DummyAchievement {
-        public final String id;
+        public final int id;
         public final String achievement_name;
         public final String achievement_description;
-        public final long achievement_rewards_treeid;
+        public final int achievement_rewards_treeid;
         public final int achievement_rewards_water;
-        public final String details;
+        public final String achievement_image;
+        public final int achievement_state;
 
-        public DummyAchievement(String id, String achievement_name, String achievement_description, long achievement_rewards_treeid, int achievement_rewards_water, String details) {
+        public DummyAchievement(int id, String achievement_name, String achievement_description, int achievement_rewards_treeid, int achievement_rewards_water, String achievement_image, int achievement_state) {
             this.id = id;
             this.achievement_name = achievement_name;
             this.achievement_description = achievement_description;
             this.achievement_rewards_treeid = achievement_rewards_treeid;
             this.achievement_rewards_water = achievement_rewards_water;
-            this.details = details;
-        }
-
-        @Override
-        public String toString() {
-            return details;
+            this.achievement_image = achievement_image;
+            this.achievement_state = achievement_state;
         }
     }
 
