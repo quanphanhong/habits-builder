@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateAchievementList() {
         DatabaseHelper db = new DatabaseHelper((getApplicationContext()));
+        db.createDefaultAchievementsIfNeeded();
         List<Achievements> achievementsList = db.getAllAchievements();
 
         DummyContent.DummyAchievement_ITEMS.clear();
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK) {
                 updateHabitList();
+                updateAchievementList();
             }
         }
     }

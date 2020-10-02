@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.habitsbuilder.dummy.DummyContent.DummyAchievement;
@@ -33,8 +34,17 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
+       // holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).achievement_name);
+
+        switch (mValues.get(position).achievement_image) {
+            case "ic_achievement_1":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_1);
+                break;
+            case "ic_achievement_2":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_2);
+                break;
+        }
     }
 
     @Override
@@ -46,6 +56,7 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final ImageView mImageView;
         public DummyAchievement mItem;
 
         public ViewHolder(View view) {
@@ -53,6 +64,8 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mImageView = (ImageView) view.findViewById(R.id.image_ach);
+
         }
 
         @Override

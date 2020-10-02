@@ -127,7 +127,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void createDefaultAchievementsIfNeeded() {
-
+        int count = this.getAchievementCount();
+        if(count == 0){
+            for(int i = 1; i <= 2; i++){
+                Achievements ach = new Achievements("Achievement " + String.valueOf(i),"Achievement " + String.valueOf(i), i,"ic_achievement_" + String.valueOf(i), 0 );
+                this.addAchievements(ach);
+            }
+        }
     }
 
     public void addHabit(Habit habit){
@@ -289,6 +295,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
+    public int getAchievementCount(){
+        String countQuery = "SELECT * FROM ACHIEVEMENTS";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
 
         cursor.close();

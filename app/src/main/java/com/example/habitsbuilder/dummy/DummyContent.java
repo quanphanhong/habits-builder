@@ -34,6 +34,7 @@ public class DummyContent {
     }
 
     public static DummyItem createDummyItem(Habit habit, HabitRank rank) {
+
         return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetHabitStreak(), rank.getName(), rank.getImage(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
     }
 
