@@ -34,14 +34,14 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-       // holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).achievement_name);
-
+        holder.mIdView.setText(mValues.get(position).achievement_name);
+        holder.mContentView.setText(mValues.get(position).achievement_description);
+        //holder.mContentView.setText(mValues.get(position).achievement_image);
         switch (mValues.get(position).achievement_image) {
-            case "ic_achievement_1":
+            case "1":
                 holder.mImageView.setImageResource(R.drawable.ic_achievement_1);
                 break;
-            case "ic_achievement_2":
+            case "2":
                 holder.mImageView.setImageResource(R.drawable.ic_achievement_2);
                 break;
         }
