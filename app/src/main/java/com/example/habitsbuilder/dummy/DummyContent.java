@@ -2,30 +2,19 @@ package com.example.habitsbuilder.dummy;
 
 import com.example.habitsbuilder.Database.Achievements;
 import com.example.habitsbuilder.Database.Habit;
+import com.example.habitsbuilder.Database.HabitDay;
 import com.example.habitsbuilder.Database.HabitRank;
 import com.example.habitsbuilder.Database.Rewards;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
 public class DummyContent {
-
-    /**
-     * An array of sample (dummy) items.
-     */
+    // Dummy Item
     public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
     public static final Map<Integer, DummyItem> ITEM_MAP = new HashMap<Integer, DummyItem>();
 
     public static void addItem(DummyItem item) {
@@ -38,9 +27,6 @@ public class DummyContent {
         return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetHabitStreak(), rank.getName(), rank.getImage(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
     }
 
-    /**
-     * A dummy item representing a piece of content.
-     */
     public static class DummyItem {
         public final int id;
         public final String habit_name;
@@ -63,14 +49,9 @@ public class DummyContent {
         }
     }
 
-    /**
-     * An array of sample (dummy) items.
-     */
-    public static final List<DummyAchievement> DummyAchievement_ITEMS = new ArrayList<DummyAchievement>();
 
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
+    // Dummy Achievement
+    public static final List<DummyAchievement> DummyAchievement_ITEMS = new ArrayList<DummyAchievement>();
     public static final Map<Integer, DummyAchievement> DummyAchievement_ITEM_MAP = new HashMap<Integer, DummyAchievement>();
 
     public static void DummyAchievement_addItem(DummyAchievement item) {
@@ -83,9 +64,6 @@ public class DummyContent {
         return new DummyAchievement(achievements.GetAchId(), achievements.GetAchName(), achievements.GetAchDes(), rewards.getTreeID(), rewards.getWaterAmount(), achievements.GetAchImg(), achievements.GetAchState());
     }
 
-    /**
-     * A dummy item representing a piece of content.
-     */
     public static class DummyAchievement {
         public final int id;
         public final String achievement_name;
@@ -106,4 +84,31 @@ public class DummyContent {
         }
     }
 
+
+    // Dummy HabitDay
+    public static final List<DummyHabitDay> DummyHabitDay_ITEMS = new ArrayList<DummyHabitDay>();
+    public static final Map<Integer, DummyHabitDay> DummyHabitDay_ITEM_MAP = new HashMap<Integer, DummyHabitDay>();
+
+    public static void DummyHabitDay_addItem(DummyHabitDay item) {
+        DummyHabitDay_ITEMS.add(item);
+        DummyHabitDay_ITEM_MAP.put(item.id, item);
+    }
+
+    public static DummyHabitDay DummyHabitDay_createDummyItem(HabitDay habitDay, Habit habit) {
+        return new DummyHabitDay(habitDay.getHabitId(), habit.GetHabitName(), habitDay.getDate(), habitDay.getState());
+    }
+
+    public static class DummyHabitDay {
+        public final int id;
+        public final String habit_name;
+        public final Date habit_day;
+        public final int habit_state;
+
+        public DummyHabitDay(int id, String habit_name, Date habit_day, int habit_state) {
+            this.id = id;
+            this.habit_name = habit_name;
+            this.habit_day = habit_day;
+            this.habit_state = habit_state;
+        }
+    }
 }

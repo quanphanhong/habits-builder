@@ -22,6 +22,7 @@
     <dimen name="achievements_text_size_large">20sp</dimen>
     <dimen name="achievements_text_size_small">10sp</dimen>
     <dimen name="achievements_text_margin">8dp</dimen>
+    <dimen name="achievements_text_size_medium">16sp</dimen>
 
     <!-- pets -->
     <dimen name="pets_icon_margin">20dp</dimen>

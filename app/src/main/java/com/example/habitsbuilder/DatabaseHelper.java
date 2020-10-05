@@ -128,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void createDefaultAchievementsIfNeeded() {
         int count = this.getAchievementCount();
-        if(count == 0){
+        if (count == 0){
             for(int i = 1; i <= 2; i++){
                 Achievements ach = new Achievements("Achievement " + String.valueOf(i),"Achievement " + String.valueOf(i), i,"ic_achievement" + String.valueOf(i), 0 );
                 this.addAchievements(ach);
