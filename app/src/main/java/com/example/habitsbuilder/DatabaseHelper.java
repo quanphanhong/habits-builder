@@ -16,7 +16,10 @@ import androidx.navigation.Navigator;
 
 import com.example.habitsbuilder.Database.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -136,6 +139,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void createHabitDayItems() {
+        List<Habit> habitList = this.getAllHabit();
+        for (Habit habit : habitList) {
+            if (habit.GetHabitState() == 0) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+                LocalDate startDate = LocalDate.parse(habit.GetHabitCreatedDate(), formatter);
+                LocalDate endDate = startDate.now().plusDays(1);
+
+                for(LocalDate currentdate = startDate; currentdate.isBefore(endDate) || currentdate.isEqual(endDate); currentdate = currentdate.plusDays(1)){
+                    String comparedDateString = currentdate.format(formatter);
+                    if (getHabitDayCount(habit.GetHabitId(), comparedDateString) == 0) {
+                        HabitDay habitDay = new HabitDay(habit.GetHabitId(), comparedDateString, 0);
+                        this.addHabitDay(habitDay);
+                    }
+                }
+            }
+        }
+    }
+
     public void addHabit(Habit habit){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -150,6 +174,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("HABIT", null, values);
         db.close();
     }
+
+    public void addHabitDay(HabitDay habitday){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("HabitID", habitday.getHabitId());
+        values.put("Date", habitday.getDate());
+        values.put("State", habitday.getState());
+
+        db.insert("HABITDAY", null, values);
+        db.close();
+    }
+
     public void addAchievements(Achievements ach){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -210,6 +247,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
         return habitList;
+    }
+
+    public List<HabitDay> getAllHabitOfDay(String Date){
+        List<HabitDay> habitList = new ArrayList<HabitDay>();
+        String selectQuery = "SELECT * FROM HABITDAY WHERE Date='" + Date + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HabitDay habitDay = new HabitDay();
+                habitDay.setHabitId(Integer.parseInt(cursor.getString(0)));
+                habitDay.setDate(cursor.getString(1));
+                habitDay.setState(Integer.parseInt(cursor.getString(2)));
+
+                // Adding habit to list
+                habitList.add(habitDay);
+            } while (cursor.moveToNext());
+
+        }
+        return habitList;
+    }
+
+    public int getHabitDayCount(int HabitID, String Date) {
+        String countQuery = "SELECT  * FROM HABITDAY WHERE HabitID=" + HabitID + " AND Date='" + Date + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        Log.i("habit id", String.valueOf(HabitID));
+        Log.i("habit date", Date);
+        Log.i("habitday count", String.valueOf(count));
+
+        // return count
+        return count;
     }
 
     public List<Achievements> getAllAchievements(){
@@ -282,6 +357,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 rank.setImage(cursor.getString(3));
 
                 return rank;
+            } catch (Exception ex) {
+                Log.i("Error", "Error while loading rank from database");
+            }
+        }
+
+        return null;
+    }
+
+    public Habit getHabit(int id) {
+
+        String query = "SELECT * FROM HABIT WHERE HabitID=" + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            try {
+                Habit habit = new Habit();
+                habit.SetHabitId(Integer.parseInt(cursor.getString(0)));
+                habit.SetHabitName(cursor.getString(1));
+                habit.SetHabitDes(cursor.getString(2));
+                habit.SetHabitCreatedDate(cursor.getString(3));
+                habit.SetHabitStreak(cursor.getInt(4));
+                habit.SetHabitRankId(cursor.getInt(5));
+                habit.SetHabitState(cursor.getInt(6));
+
+                return habit;
             } catch (Exception ex) {
                 Log.i("Error", "Error while loading rank from database");
             }

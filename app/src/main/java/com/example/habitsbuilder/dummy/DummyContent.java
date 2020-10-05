@@ -23,7 +23,6 @@ public class DummyContent {
     }
 
     public static DummyItem createDummyItem(Habit habit, HabitRank rank) {
-
         return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetHabitStreak(), rank.getName(), rank.getImage(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
     }
 
@@ -101,10 +100,10 @@ public class DummyContent {
     public static class DummyHabitDay {
         public final int id;
         public final String habit_name;
-        public final Date habit_day;
+        public final String habit_day;
         public final int habit_state;
 
-        public DummyHabitDay(int id, String habit_name, Date habit_day, int habit_state) {
+        public DummyHabitDay(int id, String habit_name, String habit_day, int habit_state) {
             this.id = id;
             this.habit_name = habit_name;
             this.habit_day = habit_day;

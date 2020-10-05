@@ -19,19 +19,12 @@ import com.example.habitsbuilder.dummy.DummyContent;
  */
 public class CheckListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public CheckListFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static CheckListFragment newInstance(int columnCount) {
         CheckListFragment fragment = new CheckListFragment();
@@ -64,8 +57,9 @@ public class CheckListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCheckListRecyclerViewAdapter(DummyContent.ITEMS));
+            recyclerView.setAdapter(new MyCheckListRecyclerViewAdapter(DummyContent.DummyHabitDay_ITEMS));
         }
+
         return view;
     }
 }
