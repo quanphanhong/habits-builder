@@ -4,23 +4,23 @@ import java.io.Serializable;
 
 public class Rewards implements Serializable {
     private int RewardID;
-    private int TreeID;
-    private int WaterAmount;
+    private Integer TreeID;
+    private Integer WaterAmount;
 
     public Rewards() {}
 
-    public Rewards(int RewardID, int TreeID, int WaterAmount) {
+    public Rewards(int RewardID, Integer TreeID, Integer WaterAmount) {
         this.RewardID = RewardID;
         this.TreeID = TreeID;
         this.WaterAmount = WaterAmount;
     }
 
-    public Rewards(int TreeID, int WaterAmount){
+    public Rewards(Integer TreeID, Integer WaterAmount){
         this.TreeID = TreeID;
         this.WaterAmount = WaterAmount;
     };
 
-    public Rewards(int WaterAmount){
+    public Rewards(Integer WaterAmount){
         this.WaterAmount = WaterAmount;
     }
 
@@ -28,11 +28,11 @@ public class Rewards implements Serializable {
         return RewardID;
     }
 
-    public int getTreeID() {
+    public Integer getTreeID() {
         return TreeID;
     }
 
-    public int getWaterAmount() {
+    public Integer getWaterAmount() {
         return WaterAmount;
     }
 
@@ -40,11 +40,11 @@ public class Rewards implements Serializable {
         RewardID = rewardID;
     }
 
-    public void setTreeID(int treeID) {
+    public void setTreeID(Integer treeID) {
         TreeID = treeID;
     }
 
-    public void setWaterAmount(int waterAmount) {
+    public void setWaterAmount(Integer waterAmount) {
         WaterAmount = waterAmount;
     }
 }

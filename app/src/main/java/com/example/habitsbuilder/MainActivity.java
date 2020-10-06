@@ -64,20 +64,30 @@ public class MainActivity extends AppCompatActivity {
         List<Habit> habitList = db.getAllHabit();
         DummyContent.ITEMS.clear();
         DummyContent.ITEM_MAP.clear();
-        for (Habit habit : habitList)
+        for (Habit habit : habitList){
             DummyContent.addItem(DummyContent.createDummyItem(habit, db.getRank(habit.GetHabitRankId())));
+            //Log.i("habit rank", String.valueOf(habit.GetHabitRankId()));
+        }
+
     }
 
     private void updateAchievementList() {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        db.createDefaultRewardsIfNeeded();
         db.createDefaultAchievementsIfNeeded();
+
         List<Achievements> achievementsList = db.getAllAchievements();
 
+        //Achievements achievements = achievementsList.get(0);
+       // achievements.SetAchRewId(1);
         DummyContent.DummyAchievement_ITEMS.clear();
         DummyContent.DummyAchievement_ITEM_MAP.clear();
 
-        for (Achievements achievement : achievementsList)
-            DummyContent.DummyAchievement_addItem(DummyContent.DummyAchievement_createDummyItem(achievement));
+        for (Achievements achievement : achievementsList){
+            //  if(achievement.GetAchRewId() != 0;
+            //achievement.SetAchRewId(achievement.GetAchId());
+            DummyContent.DummyAchievement_addItem(DummyContent.DummyAchievement_createDummyItem(achievement, db.getReward(achievement.GetAchRewId())));
+        }
     }
 
     private void menuItemsChanged() {

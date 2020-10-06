@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_REWARDS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS REWARDS(" +
             "RewardID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "TreeID DECIMAL, " +
+            "TreeID INTEGER, " +
             "WaterAmount INTEGER, " +
             "FOREIGN KEY(TreeID) REFERENCES TREES(TreeID)" +
             ")";
@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "AchievementID INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "Name TEXT NOT NULL, " +
             "Description TEXT, " +
-            "RewardID DECIMAL, " +
+            "RewardID INTEGER, " +
             "Image TEXT, " +
             "State INTEGER, " +
             "FOREIGN KEY(RewardID) REFERENCES REWARDS(RewardID)" +
@@ -125,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for (int i = 1; i <= 10; i++) {
                 HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i));
                 this.addRank(rank);
+                //Log.i("rankid", String.valueOf(rank.getRankId()));
             }
         }
     }
@@ -134,9 +135,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (count == 0){
             for(int i = 1; i <= 2; i++){
                 Achievements ach = new Achievements("Achievement " + String.valueOf(i),"Achievement " + String.valueOf(i), i,"ic_achievement" + String.valueOf(i), 0 );
+                Log.i("gia tri cua i", String.valueOf(i));
+                Log.i("gia tri cua achrewid", String.valueOf(ach.GetAchRewId()));
+                //ach.SetAchRewId(i);
                 this.addAchievements(ach);
+                Log.i("gia tri cua achrewid s", String.valueOf(ach.GetAchRewId()));
             }
         }
+    }
+
+    public void createDefaultRewardsIfNeeded(){
+        int count = this.getRewardCount();
+        if(count == 0){
+            for(int i = 1; i <=2; i++){
+                Rewards rewards = new Rewards(i, i, 500);
+                Log.i("reward id", String.valueOf(rewards.getRewardID()));
+                this.addRewards(rewards);
+            }
+        }
+    }
+
+    public int getRewardCount(){
+        String countQuery = "SELECT  * FROM REWARDS";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        // return count
+        return count;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -190,13 +219,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addAchievements(Achievements ach){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("RewardID", ach.GetAchRewId());
         values.put("Name", ach.GetAchName());
         values.put("Image", ach.GetAchImg());
         values.put("Description", ach.GetAchDes());
         values.put("State", ach.GetAchState());
-        values.put("RewardID", ach.GetAchRewId());
+
 
         db.insert("ACHIEVEMENTS", null, values);
+        db.close();
+    }
+
+    public void addRewards(Rewards rewards){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("WaterAmount", rewards.getWaterAmount());
+        values.put("TreeID", rewards.getRewardID());
+
+        db.insert("REWARDS", null, values);
         db.close();
     }
 
@@ -299,9 +339,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ach.SetAchId(Integer.parseInt(cursor.getString(0)));
                 ach.SetAchName(cursor.getString(1));
                 ach.SetAchDes(cursor.getString(2));
-                ach.SetAchImg(cursor.getString(3));
-                ach.SetAchState(cursor.getInt(4));
-                ach.SetAchRewId(cursor.getInt(5));
+                ach.SetAchRewId(cursor.getInt(3));
+                ach.SetAchImg(cursor.getString(4));
+                ach.SetAchState(cursor.getInt(5));
 
 
                 // Adding habit to list
@@ -310,6 +350,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
         return AchievementList;
+    }
+
+    public List<Rewards> getAllRewards(){
+        List<Rewards> RewardList = new ArrayList<Rewards>();
+        String selectQuery = "SELECT * FROM REWARDS";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Rewards rewards = new Rewards();
+                rewards.setRewardID(Integer.parseInt(cursor.getString(0)));
+                rewards.setTreeID(Integer.parseInt(cursor.getString(1)));
+                rewards.setWaterAmount(Integer.parseInt(cursor.getString(2)));
+
+
+
+                // Adding habit to list
+                RewardList.add(rewards);
+            } while (cursor.moveToNext());
+
+        }
+        return RewardList;
+    }
+
+    public Rewards getReward(int id){
+        String query = "SELECT * FROM REWARDS WHERE RewardID=" + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            try {
+                Rewards reward = new Rewards();
+                reward.setRewardID(Integer.parseInt(cursor.getString(0)));
+                reward.setTreeID(Integer.parseInt(cursor.getString(1)));
+                reward.setWaterAmount(Integer.parseInt(cursor.getString(2)));
+
+                return reward;
+            } catch (Exception ex) {
+                Log.i("Error", "Error while loading rank from database");
+            }
+        }
+
+        return null;
+
     }
     public List<Tree> getAllTree(){
         List<Tree> TreeList = new ArrayList<Tree>();

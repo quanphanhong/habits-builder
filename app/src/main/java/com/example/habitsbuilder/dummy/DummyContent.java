@@ -1,5 +1,7 @@
 package com.example.habitsbuilder.dummy;
 
+import android.util.Log;
+
 import com.example.habitsbuilder.Database.Achievements;
 import com.example.habitsbuilder.Database.Habit;
 import com.example.habitsbuilder.Database.HabitDay;
@@ -58,8 +60,8 @@ public class DummyContent {
         DummyAchievement_ITEM_MAP.put(item.id, item);
     }
 
-    public static DummyAchievement DummyAchievement_createDummyItem(Achievements achievements) {
-        Rewards rewards = new Rewards();
+    public static DummyAchievement DummyAchievement_createDummyItem(Achievements achievements, Rewards rewards) {
+        Log.i("reward water amount", String.valueOf(rewards.getWaterAmount()));
         return new DummyAchievement(achievements.GetAchId(), achievements.GetAchName(), achievements.GetAchDes(), rewards.getTreeID(), rewards.getWaterAmount(), achievements.GetAchImg(), achievements.GetAchState());
     }
 
@@ -67,12 +69,12 @@ public class DummyContent {
         public final int id;
         public final String achievement_name;
         public final String achievement_description;
-        public final int achievement_rewards_treeid;
-        public final int achievement_rewards_water;
+        public final Integer achievement_rewards_treeid;
+        public final Integer achievement_rewards_water;
         public final String achievement_image;
         public final int achievement_state;
 
-        public DummyAchievement(int id, String achievement_name, String achievement_description, int achievement_rewards_treeid, int achievement_rewards_water, String achievement_image, int achievement_state) {
+        public DummyAchievement(int id, String achievement_name, String achievement_description, Integer achievement_rewards_treeid, Integer achievement_rewards_water, String achievement_image, int achievement_state) {
             this.id = id;
             this.achievement_name = achievement_name;
             this.achievement_description = achievement_description;

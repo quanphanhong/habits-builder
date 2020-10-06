@@ -36,12 +36,13 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).achievement_name);
         holder.mContentView.setText(mValues.get(position).achievement_description);
+        holder.mWaterAmount.setText(mValues.get(position).achievement_rewards_water.toString());
         //holder.mContentView.setText(mValues.get(position).achievement_image);
         switch (mValues.get(position).achievement_image) {
-            case "1":
+            case "ic_achievement1":
                 holder.mImageView.setImageResource(R.drawable.ic_achievement_1);
                 break;
-            case "2":
+            case "ic_achievement2":
                 holder.mImageView.setImageResource(R.drawable.ic_achievement_2);
                 break;
         }
@@ -57,6 +58,7 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
         public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
+        public final TextView mWaterAmount;
         public DummyAchievement mItem;
 
         public ViewHolder(View view) {
@@ -65,6 +67,7 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
             mImageView = (ImageView) view.findViewById(R.id.image_ach);
+            mWaterAmount = (TextView) view.findViewById(R.id.water_amount_text_view);
 
         }
 
