@@ -45,6 +45,36 @@ public class MyAchievementRecyclerViewAdapter extends RecyclerView.Adapter<MyAch
             case "ic_achievement2":
                 holder.mImageView.setImageResource(R.drawable.ic_achievement_2);
                 break;
+            case "ic_achievement3":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_3);
+                break;
+            case "ic_achievement4":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_4);
+                break;
+            case "ic_achievement5":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_5);
+                break;
+            case "ic_achievement6":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_6);
+                break;
+            case "ic_achievement7":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_7);
+                break;
+            case "ic_achievement8":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_8);
+                break;
+            case "ic_achievement9":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_9);
+                break;
+            case "ic_achievement10":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_10);
+                break;
+            case "ic_achievement11":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_11);
+                break;
+            case "ic_achievement12":
+                holder.mImageView.setImageResource(R.drawable.ic_achievement_12);
+                break;
         }
     }
 

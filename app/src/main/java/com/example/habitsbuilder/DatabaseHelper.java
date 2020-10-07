@@ -125,21 +125,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for (int i = 1; i <= 10; i++) {
                 HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i));
                 this.addRank(rank);
-                //Log.i("rankid", String.valueOf(rank.getRankId()));
             }
         }
     }
-
+    final int COUNT_ACHIEVEMENT = 12;
     public void createDefaultAchievementsIfNeeded() {
+
+        String name[] = new String[COUNT_ACHIEVEMENT + 1];
+        String description[] = new String[COUNT_ACHIEVEMENT + 1];
+        for(int i=1; i<=COUNT_ACHIEVEMENT; i++){
+            switch (i){
+                case 1:
+                    name[i] = "Good Start";
+                    description[i] = "Having a level 1 habit";
+                    break;
+                case 2:
+                    name[i] = "Warrior";
+                    description[i] = "Having a level 3 habit";
+                    break;
+                case 3:
+                    name[i] = "Persistence";
+                    description[i] = "Having a level 5";
+                    break;
+                case 4:
+                    name[i] = "Never Give Up";
+                    description[i] = "Having a level 10 habit";
+                    break;
+                case 5:
+                    name[i] = "Silver Habit";
+                    description[i] = "Having three level 1 habits";
+                    break;
+                case 6:
+                    name[i] = "Super Warrior";
+                    description[i] = "Having three level 3 habits";
+                    break;
+                case 7:
+                    name[i] = "Control habit";
+                    description[i] = "Having three level 5 habits";
+                    break;
+                case 8:
+                    name[i] = "Nothing Is Difficult";
+                    description[i] = "Having three level 10 habits";
+                    break;
+                case 9:
+                    name[i] = "Golden Habit";
+                    description[i] = "Having five level 1 habits";
+                    break;
+                case 10:
+                    name[i] = "Superman";
+                    description[i] = "Having five level 3 habits";
+                    break;
+                case 11:
+                    name[i] = "Iron Will";
+                    description[i] = "Having five level 5 habits";
+                    break;
+                case 12:
+                    name[i] = "Master habit";
+                    description[i] = "Having five level 10 habits";
+                    break;
+            }
+        }
+
         int count = this.getAchievementCount();
         if (count == 0){
-            for(int i = 1; i <= 2; i++){
-                Achievements ach = new Achievements("Achievement " + String.valueOf(i),"Achievement " + String.valueOf(i), i,"ic_achievement" + String.valueOf(i), 0 );
-                Log.i("gia tri cua i", String.valueOf(i));
-                Log.i("gia tri cua achrewid", String.valueOf(ach.GetAchRewId()));
-                //ach.SetAchRewId(i);
+            for(int i = 1; i <= COUNT_ACHIEVEMENT; i++){
+                Achievements ach = new Achievements(name[i],description[i], i,"ic_achievement" + String.valueOf(i), 0 );
                 this.addAchievements(ach);
-                Log.i("gia tri cua achrewid s", String.valueOf(ach.GetAchRewId()));
             }
         }
     }
@@ -147,7 +198,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createDefaultRewardsIfNeeded(){
         int count = this.getRewardCount();
         if(count == 0){
-            for(int i = 1; i <=2; i++){
+            for(int i = 1; i <=COUNT_ACHIEVEMENT; i++){
                 Rewards rewards = new Rewards(i, i, 500);
                 Log.i("reward id", String.valueOf(rewards.getRewardID()));
                 this.addRewards(rewards);
