@@ -43,6 +43,8 @@ public class CheckListFragment extends Fragment {
         }
     }
 
+    private MyCheckListRecyclerViewAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +59,9 @@ public class CheckListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCheckListRecyclerViewAdapter(DummyContent.DummyHabitDay_ITEMS));
+
+            adapter = new MyCheckListRecyclerViewAdapter(DummyContent.DummyHabitDay_ITEMS);
+            recyclerView.setAdapter(adapter);
         }
 
         return view;

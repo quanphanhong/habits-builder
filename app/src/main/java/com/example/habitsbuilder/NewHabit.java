@@ -90,14 +90,16 @@ public class NewHabit extends AppCompatActivity {
         sp_frequency.setAdapter(adapter);
     }
 
+    private static int currentDay = 0;
+    private static int currentMonth = 0;
+    private static int currentYear = 0;
+
     public void datePickerClicked(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.date_picker, null);
 
         final DatePicker datePicker = alertLayout.findViewById(R.id.date_picker);
-        //timePicker.setIs24HourView(true);
-        //timePicker.setHour(Integer.parseInt(tv_alertTime.getText().subSequence(0, 2).toString()));
-        //timePicker.setMinute(Integer.parseInt(tv_alertTime.getText().subSequence(3, 5).toString()));
+        // datePicker.updateDate(currentYear, currentMonth, currentDay);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Choose Starting Date");
@@ -115,15 +117,19 @@ public class NewHabit extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String currentTime;
 
+                currentDay = datePicker.getDayOfMonth();
+                currentMonth = datePicker.getDayOfMonth();
+                currentYear = datePicker.getYear();
+
                 if (datePicker.getDayOfMonth() < 10)
                     currentTime = "0" + datePicker.getDayOfMonth() + "/";
                 else
                     currentTime = datePicker.getDayOfMonth() + "/";
 
-                if (datePicker.getMonth() < 10)
-                    currentTime += "0" + datePicker.getMonth() + "/";
+                if (datePicker.getMonth() + 1 < 10)
+                    currentTime += "0" + (datePicker.getMonth() + 1) + "/";
                 else
-                    currentTime += datePicker.getMonth() + "/";
+                    currentTime += (datePicker.getMonth() + 1) + "/";
 
                 currentTime += datePicker.getYear();
 

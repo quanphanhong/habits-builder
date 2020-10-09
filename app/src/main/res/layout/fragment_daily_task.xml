@@ -9,9 +9,9 @@
     tools:context=".DailyTaskFragment">
 
     <CalendarView
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/calendar"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,13 +35,13 @@
         android:src="@drawable/bg_grey"
         android:visibility="invisible"
         android:contentDescription="@string/todo" />
-
-    <fragment
+    
+    <FrameLayout
         android:id="@+id/habit_list_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/habit_list_text"
-        android:name="com.example.habitsbuilder.CheckListFragment"
-        tools:layout="@layout/fragment_checklist_list" />
+        android:layout_below="@+id/habit_list_text">
+
+    </FrameLayout>
 
 </RelativeLayout>

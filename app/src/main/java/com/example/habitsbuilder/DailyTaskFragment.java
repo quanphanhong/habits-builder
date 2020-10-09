@@ -2,24 +2,23 @@ package com.example.habitsbuilder;
 
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
-import com.example.habitsbuilder.Database.Habit;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.habitsbuilder.Database.HabitDay;
 import com.example.habitsbuilder.dummy.DummyContent;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +38,6 @@ public class DailyTaskFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private CalendarView calendar;
 
     public DailyTaskFragment() {
@@ -85,10 +83,19 @@ public class DailyTaskFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         calendar = (CalendarView) view.findViewById(R.id.calendar);
+
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.replace(R.id.habit_list_fragment, new CheckListFragment());
+        ft.commit();
+
         updateHabitList();
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(year, month, dayOfMonth);
+                calendar.setDate(cal.getTimeInMillis());
+
                 updateHabitList();
             }
         });
@@ -101,17 +108,18 @@ public class DailyTaskFragment extends Fragment {
         db.createHabitDayItems();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dayGettingHabitFrom = sdf.format(new Date(calendar.getDate()));
+        Log.i("the chosen date", String.valueOf(calendar.getDate()));
         List<HabitDay> habitDays = db.getAllHabitOfDay(dayGettingHabitFrom);
-
-        //List<HabitDay> habitDays = new ArrayList<HabitDay>();
-        //habitDays.add(new HabitDay(1, "1", 1));
 
         DummyContent.DummyHabitDay_ITEMS.clear();
         DummyContent.DummyHabitDay_ITEM_MAP.clear();
 
         for (HabitDay habitDay : habitDays) {
             DummyContent.DummyHabitDay_addItem(DummyContent.DummyHabitDay_createDummyItem(habitDay, db.getHabit(habitDay.getHabitId())));
-            //DummyContent.DummyHabitDay_addItem(DummyContent.DummyHabitDay_createDummyItem(habitDay, new Habit("abc", "fsafd", "safds,", 5, 1, 1)));
         }
+
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.replace(R.id.habit_list_fragment, new CheckListFragment());
+        ft.commit();
     }
 }
