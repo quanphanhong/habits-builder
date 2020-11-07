@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "Name TEXT NOT NULL, " +
             "Description TEXT NOT NULL, " +
             "CreatedDate TEXT, " +
+            "Frequency INT, " +
             "Streak INTEGER, " +
             "RankID DECIMAL, " +
             "State INTEGER, " +
@@ -247,6 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Name", habit.GetHabitName());
         values.put("Description", habit.GetHabitDes());
         values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
+        values.put("Frequency", habit.GetFrequency());
         values.put("Streak", habit.GetHabitStreak());
         values.put("State", habit.GetHabitState());
         values.put("RankID", habit.GetHabitRankId());
@@ -328,9 +330,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetHabitName(cursor.getString(1));
                 habit.SetHabitDes(cursor.getString(2));
                 habit.SetHabitCreatedDate(cursor.getString(3));
-                habit.SetHabitStreak(cursor.getInt(4));
-                habit.SetHabitRankId(cursor.getInt(5));
-                habit.SetHabitState(cursor.getInt(6));
+                habit.SetFrequency(Integer.parseInt(cursor.getString(4)));
+                habit.SetHabitStreak(cursor.getInt(5));
+                habit.SetHabitRankId(cursor.getInt(6));
+                habit.SetHabitState(cursor.getInt(7));
 
                 // Adding habit to list
                 habitList.add(habit);
@@ -514,9 +517,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetHabitName(cursor.getString(1));
                 habit.SetHabitDes(cursor.getString(2));
                 habit.SetHabitCreatedDate(cursor.getString(3));
-                habit.SetHabitStreak(cursor.getInt(4));
-                habit.SetHabitRankId(cursor.getInt(5));
-                habit.SetHabitState(cursor.getInt(6));
+                habit.SetFrequency(cursor.getInt((4)));
+                habit.SetHabitStreak(cursor.getInt(5));
+                habit.SetHabitRankId(cursor.getInt(6));
+                habit.SetHabitState(cursor.getInt(7));
 
                 return habit;
             } catch (Exception ex) {
@@ -554,6 +558,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteHabit(Habit habit){
         SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("HABITDAY", "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
         db.delete("HABIT", "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
         db.close();
     }

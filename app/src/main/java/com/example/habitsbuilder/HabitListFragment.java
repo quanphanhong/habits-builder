@@ -41,6 +41,14 @@ public class HabitListFragment extends Fragment {
         return fragment;
     }
 
+    public static void updateRecyclerView() {
+        if (adapter != null) {
+            synchronized (adapter) {
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +57,8 @@ public class HabitListFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
+
+    private static MyHabitListRecyclerViewAdapter adapter = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +74,10 @@ public class HabitListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyHabitListRecyclerViewAdapter(DummyContent.ITEMS));
+
+            adapter = new MyHabitListRecyclerViewAdapter(DummyContent.ITEMS);
+
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }

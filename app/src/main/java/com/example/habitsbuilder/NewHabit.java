@@ -35,6 +35,10 @@ import java.util.GregorianCalendar;
 
 public class NewHabit extends AppCompatActivity {
 
+    public static final int DEFAULT_STREAK = 0;
+    public static final int DEFAULT_RANK_ID = 1;
+    public static final int DEFAULT_STATE = 0;
+
     EditText et_habitName;
     EditText et_description;
     EditText et_startingDate;
@@ -78,7 +82,7 @@ public class NewHabit extends AppCompatActivity {
     }
 
     private void prepFrequency() {
-        String values[] = {"1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "7 days"};
+        String values[] = {"1", "2", "3", "4", "5", "6", "7"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -186,16 +190,25 @@ public class NewHabit extends AppCompatActivity {
     }
 
     public void newHabitClicked(View view) {
+        String habitName = et_habitName.getText().toString();
+        String habitDescription = et_description.getText().toString();
+        String habitStartingDate = et_startingDate.getText().toString();
+        int frequency = Integer.parseInt(sp_frequency.getSelectedItem().toString());
+
+        if (habitName == "" || habitDescription == "" || frequency < 0 || frequency > 7 || habitStartingDate == "")
+            return;
+
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         db.createDefaultRanksIfNeeded();
 
         Habit new_habit = new Habit(
-                et_habitName.getText().toString(),
-                et_description.getText().toString(),
-                et_startingDate.getText().toString(),
-                0,
-                1,
-                0
+                habitName,
+                habitDescription,
+                habitStartingDate,
+                frequency,
+                DEFAULT_STREAK,
+                DEFAULT_RANK_ID,
+                DEFAULT_STATE
         );
 
         db.addHabit(new_habit);

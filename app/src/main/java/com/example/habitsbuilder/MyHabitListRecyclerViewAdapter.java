@@ -2,9 +2,13 @@ package com.example.habitsbuilder;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +20,7 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabitListRecyclerViewAdapter.ViewHolder> {
+public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabitListRecyclerViewAdapter.ViewHolder> implements View.OnClickListener{
 
     private final List<DummyItem> mValues;
 
@@ -32,7 +36,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mHabitName.setText(mValues.get(position).habit_name);
         holder.mHabitDescription.setText(mValues.get(position).habit_description);
@@ -71,6 +75,18 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
                 holder.mImageLevel.setImageResource(R.drawable.ic_lv10);
                 break;
         }
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), HabitDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("habitID", mValues.get(position).id);
+                intent.putExtras(bundle);
+
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -78,7 +94,17 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(v.getContext(), HabitDetail.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("habitID", v.getId());
+        intent.putExtras(bundle);
+
+        v.getContext().startActivity(intent);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
         public final TextView mHabitName;
         public final TextView mHabitDescription;
@@ -100,6 +126,15 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         @Override
         public String toString() {
             return super.toString() + " '" + mTextLevel.getText() + "'";
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), HabitDetail.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("habitID", v.getId());
+            intent.putExtras(bundle);
+            v.getContext().startActivity(intent);
         }
     }
 }

@@ -34,6 +34,14 @@ public class CheckListFragment extends Fragment {
         return fragment;
     }
 
+    public static void updateRecyclerView() {
+        if (adapter != null) {
+            synchronized (adapter) {
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +51,7 @@ public class CheckListFragment extends Fragment {
         }
     }
 
-    private MyCheckListRecyclerViewAdapter adapter;
+    private static MyCheckListRecyclerViewAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

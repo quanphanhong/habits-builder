@@ -1,5 +1,6 @@
 package com.example.habitsbuilder;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.habitsbuilder.Database.HabitDay;
@@ -38,7 +40,7 @@ public class DailyTaskFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private CalendarView calendar;
+    //private CalendarView calendar;
 
     public DailyTaskFragment() {
         // Required empty public constructor
@@ -71,6 +73,10 @@ public class DailyTaskFragment extends Fragment {
         }
     }
 
+    private static Context context;
+    private static FragmentManager childFragmentManager;
+    private static CalendarView calendar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,6 +94,9 @@ public class DailyTaskFragment extends Fragment {
         ft.replace(R.id.habit_list_fragment, new CheckListFragment());
         ft.commit();
 
+        context = getContext();
+        childFragmentManager = getChildFragmentManager();
+
         updateHabitList();
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -102,13 +111,13 @@ public class DailyTaskFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void updateHabitList() {
-        Log.i("habit list updated", "habit list has been updated");
-        DatabaseHelper db = new DatabaseHelper(getContext());
+    public static void updateHabitList() {
+        if (context == null) return;
+        DatabaseHelper db = new DatabaseHelper(context);
         db.createHabitDayItems();
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dayGettingHabitFrom = sdf.format(new Date(calendar.getDate()));
-        Log.i("the chosen date", String.valueOf(calendar.getDate()));
         List<HabitDay> habitDays = db.getAllHabitOfDay(dayGettingHabitFrom);
 
         DummyContent.DummyHabitDay_ITEMS.clear();
@@ -118,8 +127,12 @@ public class DailyTaskFragment extends Fragment {
             DummyContent.DummyHabitDay_addItem(DummyContent.DummyHabitDay_createDummyItem(habitDay, db.getHabit(habitDay.getHabitId())));
         }
 
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.habit_list_fragment, new CheckListFragment());
-        ft.commit();
+        try {
+            FragmentTransaction ft = childFragmentManager.beginTransaction();
+            ft.replace(R.id.habit_list_fragment, new CheckListFragment());
+            ft.commit();
+        } catch (Exception ex) {
+            Log.i("Exception", ex.getMessage());
+        }
     }
 }
