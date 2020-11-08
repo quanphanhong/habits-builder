@@ -68,7 +68,8 @@ public class HabitDetail extends AppCompatActivity {
     }
 
     private void displayInfo() {
-        tv_description.setText(habit.GetHabitName());
+        tv_Title.setText(habit.GetHabitName());
+        tv_description.setText(habit.GetHabitDes());
         tv_createdDate.setText(habit.GetHabitCreatedDate());
         tv_frequency.setText(String.valueOf(habit.GetFrequency()) + " " + getResources().getString(R.string.habit_detail_info_frequency_des));
         tv_rank.setText(String.valueOf(db.getRank(habit.GetHabitRankId()).getName()));

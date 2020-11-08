@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.habitsbuilder.Database.HabitDay;
 import com.example.habitsbuilder.dummy.DummyContent;
 
 /**

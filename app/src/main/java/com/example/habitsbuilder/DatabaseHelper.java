@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "Frequency INTEGER, " +
             "Point INTEGER, " +
             "RankID DECIMAL, " +
-            "State INTEGER, " +
+            "Score INTEGER, " +
             "FOREIGN KEY(RankID) REFERENCES HABITRANK(RankID)" +
             ")";
 
@@ -125,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = this.getRankCount();
         if (count == 0) {
             for (int i = 1; i <= 10; i++) {
-                HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i), i * 1000);
+                HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i), (i - 1) * i * 2000);
                 this.addRank(rank);
             }
         }
@@ -225,18 +225,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createHabitDayItems() {
         List<Habit> habitList = this.getAllHabit();
         for (Habit habit : habitList) {
-            if (habit.GetHabitState() == 0) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-                LocalDate startDate = LocalDate.parse(habit.GetHabitCreatedDate(), formatter);
-                LocalDate endDate = startDate.now().plusDays(1);
+            LocalDate startDate = LocalDate.parse(habit.GetHabitCreatedDate(), formatter);
+            LocalDate endDate = startDate.now().plusDays(1);
 
-                for(LocalDate currentdate = startDate; currentdate.isBefore(endDate) || currentdate.isEqual(endDate); currentdate = currentdate.plusDays(1)){
-                    String comparedDateString = currentdate.format(formatter);
-                    if (getHabitDayCount(habit.GetHabitId(), comparedDateString) == 0) {
-                        HabitDay habitDay = new HabitDay(habit.GetHabitId(), comparedDateString, 0);
-                        this.addHabitDay(habitDay);
-                    }
+            for(LocalDate currentdate = startDate; currentdate.isBefore(endDate) || currentdate.isEqual(endDate); currentdate = currentdate.plusDays(1)){
+                String comparedDateString = currentdate.format(formatter);
+                if (getHabitDayCount(habit.GetHabitId(), comparedDateString) == 0) {
+                    HabitDay habitDay = new HabitDay(habit.GetHabitId(), comparedDateString, 0);
+                    this.addHabitDay(habitDay);
                 }
             }
         }
@@ -251,7 +249,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
         values.put("Frequency", habit.GetFrequency());
         values.put("Point", habit.GetPoint());
-        values.put("State", habit.GetHabitState());
+        values.put("Score", habit.GetScore());
         values.put("RankID", habit.GetHabitRankId());
 
         db.insert("HABIT", null, values);
@@ -335,7 +333,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetFrequency(Integer.parseInt(cursor.getString(4)));
                 habit.SetPoint(cursor.getInt(5));
                 habit.SetHabitRankId(cursor.getInt(6));
-                habit.SetHabitState(cursor.getInt(7));
+                habit.SetScore(cursor.getInt(7));
 
                 // Adding habit to list
                 habitList.add(habit);
@@ -374,10 +372,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getCount();
 
         cursor.close();
-
-        Log.i("habit id", String.valueOf(HabitID));
-        Log.i("habit date", Date);
-        Log.i("habitday count", String.valueOf(count));
 
         // return count
         return count;
@@ -539,7 +533,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetFrequency(cursor.getInt((4)));
                 habit.SetPoint(cursor.getInt(5));
                 habit.SetHabitRankId(cursor.getInt(6));
-                habit.SetHabitState(cursor.getInt(7));
+                habit.SetScore(cursor.getInt(7));
 
                 return habit;
             } catch (Exception ex) {
@@ -599,12 +593,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put("Name", habit.GetHabitName());
         values.put("Description", habit.GetHabitDes());
-        values.put("CreatedDay", habit.GetHabitCreatedDate().toString());
+        values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
+        values.put("Frequency", habit.GetFrequency());
         values.put("Point", habit.GetPoint());
-        values.put("State", habit.GetHabitState());
+        values.put("Score", habit.GetScore());
         values.put("RankID", habit.GetHabitRankId());
 
         db.update("HABIT", values, "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
+        db.close();
+    }
+
+    public void updateHabitDay(HabitDay habitDay) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("State", habitDay.getState());
+
+        db.update("HABITDAY", values, "HabitID=? AND Date=?", new String[]{String.valueOf(habitDay.getHabitId()), habitDay.getDate()});
         db.close();
     }
 

@@ -1,13 +1,18 @@
 package com.example.habitsbuilder;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.example.habitsbuilder.Database.Habit;
+import com.example.habitsbuilder.Database.HabitDay;
 import com.example.habitsbuilder.dummy.DummyContent.DummyHabitDay;
 
 import java.util.List;
@@ -52,6 +57,20 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
             super(view);
             mView = view;
             mHabitDayCheckBox = (CheckBox) view.findViewById(R.id.habit_day_checkbox);
+            mHabitDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    HabitDay habitDay = new HabitDay(mItem.id, mItem.habit_day, mItem.habit_state);
+                    if (isChecked)
+                        habitDay.setState(1);
+                    else
+                        habitDay.setState(0);
+                    buttonView.setChecked(isChecked);
+                    DailyTaskFragment.updateHabitDay(habitDay);
+                    //DailyTaskFragment.updateHabitList();
+                }
+            });
             mHabitDayContent = (TextView) view.findViewById(R.id.habit_day_text_view);
         }
 

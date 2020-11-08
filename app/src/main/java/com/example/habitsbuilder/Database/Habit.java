@@ -11,18 +11,18 @@ public class Habit implements Serializable {
     private int Frequency;
     private int Point;
     private int RankID;
-    private int State;
+    private int Score;
 
     public Habit() {}
 
-    public Habit(String Name, String Description, String CreatedDate, int Frequency, int Streak, int RankID, int State) {
+    public Habit(String Name, String Description, String CreatedDate, int Frequency, int Streak, int RankID, int Score) {
         this.Name = Name;
         this.Description = Description;
         this.CreatedDate = CreatedDate;
         this.Frequency = Frequency;
         this.Point = Streak;
         this.RankID = RankID;
-        this.State = State;
+        this.Score = Score;
     }
 
     public int GetHabitId(){return ID;}
@@ -32,7 +32,7 @@ public class Habit implements Serializable {
     public int GetFrequency() {return Frequency;}
     public int GetPoint(){return Point;}
     public int GetHabitRankId(){return RankID;}
-    public int GetHabitState(){return State;}
+    public int GetScore(){return Score;}
 
     public void SetHabitId(int id){ID = id;}
     public void SetHabitName(String name){Name = name;}
@@ -41,7 +41,7 @@ public class Habit implements Serializable {
     public void SetFrequency(int frequency){Frequency = frequency;}
     public void SetPoint(int point){Point = point;}
     public void SetHabitRankId(int rankId){RankID = rankId;}
-    public void SetHabitState(int state){State = state;}
+    public void SetScore(int score){Score = score;}
 
 
 }

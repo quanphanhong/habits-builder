@@ -110,6 +110,14 @@ public class DailyTaskFragment extends Fragment {
         });
     }
 
+    public static String pickedHabitDate = "";
+
+    public static void updateHabitDay(HabitDay habitDay) {
+        if (context == null) return;
+        DatabaseHelper db = new DatabaseHelper(context);
+        db.updateHabitDay(habitDay);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void updateHabitList() {
         if (context == null) return;
@@ -117,8 +125,8 @@ public class DailyTaskFragment extends Fragment {
         db.createHabitDayItems();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String dayGettingHabitFrom = sdf.format(new Date(calendar.getDate()));
-        List<HabitDay> habitDays = db.getAllHabitOfDay(dayGettingHabitFrom);
+        pickedHabitDate = sdf.format(new Date(calendar.getDate()));
+        List<HabitDay> habitDays = db.getAllHabitOfDay(pickedHabitDate);
 
         DummyContent.DummyHabitDay_ITEMS.clear();
         DummyContent.DummyHabitDay_ITEM_MAP.clear();
