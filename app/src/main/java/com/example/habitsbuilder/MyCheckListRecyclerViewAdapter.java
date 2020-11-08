@@ -68,6 +68,46 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
                         habitDay.setState(0);
                     buttonView.setChecked(isChecked);
                     DailyTaskFragment.updateHabitDay(habitDay);
+
+                    // Update Habit Score
+                    List<HabitDay> habitDayList = DailyTaskFragment.getHabitDayByHabitId(habitDay.getHabitId());
+                    Habit habit = DailyTaskFragment.getHabitById(habitDay.getHabitId());
+
+                    for (int i = 0; i < habitDayList.size(); i++) {
+                        if (habitDayList.get(i).getHabitId() == habitDay.getHabitId() && habitDayList.get(i).getDate().equals(habitDay.getDate())) {
+                            int streakBefore = 0, leftSum = 0;
+                            for (int j = i - 1; j > 0; j--) {
+                                if (habitDayList.get(j).getState() == 1) {
+                                    streakBefore++;
+                                    leftSum += streakBefore * 10;
+                                }
+                                else break;
+                            }
+
+                            int streakAfter = 0, rightSum = 0;
+                            for (int j = i + 1; j < habitDayList.size(); j++) {
+                                if (habitDayList.get(j).getState() == 1) {
+                                    streakAfter++;
+                                    rightSum += streakAfter * 10;
+                                }
+                                else break;
+                            }
+
+                            int sum = 0;
+                            for (int j = i - streakBefore; j <= i + streakAfter; j++)
+                                sum += (j - (i - streakBefore) + 1) * 10;
+
+                            if (isChecked)
+                                sum = sum - (leftSum + rightSum);
+                            else
+                                sum = leftSum + rightSum - sum;
+
+                            habit.SetScore(habit.GetScore() + sum);
+                            HabitDetail.updateHabit(habit);
+                            break;
+                        }
+                    }
+
                     //DailyTaskFragment.updateHabitList();
                 }
             });

@@ -25,7 +25,7 @@ public class DummyContent {
     }
 
     public static DummyItem createDummyItem(Habit habit, HabitRank rank) {
-        return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetPoint(), rank.getName(), rank.getImage(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
+        return new DummyItem(habit.GetHabitId(), habit.GetHabitName(), habit.GetHabitDes(), habit.GetScore(), rank.getName(), rank.getImage(), habit.GetHabitRankId(), habit.GetHabitCreatedDate());
     }
 
     public static class DummyItem {

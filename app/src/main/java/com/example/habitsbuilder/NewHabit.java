@@ -34,10 +34,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class NewHabit extends AppCompatActivity {
-
-    public static final int DEFAULT_STREAK = 0;
     public static final int DEFAULT_RANK_ID = 1;
-    public static final int DEFAULT_STATE = 0;
+    public static final int DEFAULT_SCORE = 0;
 
     EditText et_habitName;
     EditText et_description;
@@ -220,9 +218,8 @@ public class NewHabit extends AppCompatActivity {
                 habitDescription,
                 habitStartingDate,
                 frequency,
-                DEFAULT_STREAK,
                 DEFAULT_RANK_ID,
-                DEFAULT_STATE
+                DEFAULT_SCORE
         );
 
         if (inputHabit != null)

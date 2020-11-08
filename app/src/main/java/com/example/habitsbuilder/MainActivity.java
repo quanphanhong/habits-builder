@@ -90,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static HabitRank getRank(int id) {
+        DatabaseHelper db = new DatabaseHelper(context);
+        return db.getRank(id);
+    }
+
     private void menuItemsChanged() {
         navigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

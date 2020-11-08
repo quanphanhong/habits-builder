@@ -1,15 +1,18 @@
 package com.example.habitsbuilder;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.habitsbuilder.dummy.DummyContent.DummyItem;
@@ -35,12 +38,18 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mHabitName.setText(mValues.get(position).habit_name);
         holder.mHabitDescription.setText(mValues.get(position).habit_description);
         holder.mHabitStartingDay.setText(mValues.get(position).habit_starting_day);
+
+        int rank = DailyTaskFragment.getHabitById(mValues.get(position).id).GetHabitRankId();
+        holder.mLevelProgress.setMax(MainActivity.getRank(rank + 1).getAchieveScore());
+        holder.mLevelProgress.setMin(MainActivity.getRank(rank).getAchieveScore());
+        holder.mLevelProgress.setProgress(mValues.get(position).habit_point);
         holder.mTextLevel.setText(mValues.get(position).habit_rank);
 
         switch (mValues.get(position).habit_rank_image) {
@@ -109,6 +118,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         public final TextView mHabitName;
         public final TextView mHabitDescription;
         public final TextView mHabitStartingDay;
+        public final ProgressBar mLevelProgress;
         public final TextView mTextLevel;
         public final ImageView mImageLevel;
         public DummyItem mItem;
@@ -119,6 +129,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
             mHabitName = (TextView) view.findViewById(R.id.habit_name);
             mHabitDescription = (TextView) view.findViewById(R.id.habit_description);
             mHabitStartingDay = (TextView) view.findViewById(R.id.habit_starting_day);
+            mLevelProgress = (ProgressBar) view.findViewById(R.id.habit_progress);
             mTextLevel = (TextView) view.findViewById(R.id.text_level);
             mImageLevel = (ImageView) view.findViewById(R.id.image_level);
         }

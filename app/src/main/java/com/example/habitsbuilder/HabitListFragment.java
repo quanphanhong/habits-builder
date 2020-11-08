@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.habitsbuilder.Database.Habit;
 import com.example.habitsbuilder.Database.HabitDay;
 import com.example.habitsbuilder.dummy.DummyContent;
 
@@ -50,6 +51,8 @@ public class HabitListFragment extends Fragment {
         }
     }
 
+    public static Context context;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,8 @@ public class HabitListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+
+        context = getContext();
 
         // Set the adapter
         if (view instanceof RecyclerView) {

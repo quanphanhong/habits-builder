@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -28,6 +29,7 @@ public class HabitDetail extends AppCompatActivity {
 
 
     private DatabaseHelper db;
+    static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class HabitDetail extends AppCompatActivity {
         tv_frequency = findViewById(R.id.tv_frequency);
         tv_rank = findViewById(R.id.tv_rank);
         tv_point = findViewById(R.id.tv_point);
+
+        context = this;
     }
 
     private void LoadHabit(Bundle savedInstanceState) {
@@ -73,7 +77,7 @@ public class HabitDetail extends AppCompatActivity {
         tv_createdDate.setText(habit.GetHabitCreatedDate());
         tv_frequency.setText(String.valueOf(habit.GetFrequency()) + " " + getResources().getString(R.string.habit_detail_info_frequency_des));
         tv_rank.setText(String.valueOf(db.getRank(habit.GetHabitRankId()).getName()));
-        tv_point.setText(" (" + String.valueOf(habit.GetPoint()) + ")");
+        tv_point.setText(" (" + String.valueOf(habit.GetScore()) + ")");
     }
 
     public void deleteHabitClicked(View view) {
@@ -117,10 +121,16 @@ public class HabitDetail extends AppCompatActivity {
             if (resultCode == RESULT_OK)
             {
                 habit = (Habit) data.getSerializableExtra("result");
-                db.updateHabit(habit);
+                updateHabit(habit);
                 displayInfo();
             }
         }
+    }
+
+    public static void updateHabit(Habit habit) {
+        if (context == null) return;
+        DatabaseHelper database = new DatabaseHelper(context);
+        database.updateHabit(habit);
     }
 
     public void returnClicked(View view) {

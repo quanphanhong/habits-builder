@@ -42,7 +42,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "Description TEXT NOT NULL, " +
             "CreatedDate TEXT, " +
             "Frequency INTEGER, " +
-            "Point INTEGER, " +
             "RankID DECIMAL, " +
             "Score INTEGER, " +
             "FOREIGN KEY(RankID) REFERENCES HABITRANK(RankID)" +
@@ -248,7 +247,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Description", habit.GetHabitDes());
         values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
         values.put("Frequency", habit.GetFrequency());
-        values.put("Point", habit.GetPoint());
         values.put("Score", habit.GetScore());
         values.put("RankID", habit.GetHabitRankId());
 
@@ -331,9 +329,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetHabitDes(cursor.getString(2));
                 habit.SetHabitCreatedDate(cursor.getString(3));
                 habit.SetFrequency(Integer.parseInt(cursor.getString(4)));
-                habit.SetPoint(cursor.getInt(5));
-                habit.SetHabitRankId(cursor.getInt(6));
-                habit.SetScore(cursor.getInt(7));
+                habit.SetHabitRankId(cursor.getInt(5));
+                habit.SetScore(cursor.getInt(6));
 
                 // Adding habit to list
                 habitList.add(habit);
@@ -501,17 +498,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public List<String> getHabitDateById(int id) {
-        List<String> result = new ArrayList<String>();
+    public List<HabitDay> getHabitDayByHabitId(int id) {
+        List<HabitDay> result = new ArrayList<>();
         result.clear();
 
-        String selectQuery = "SELECT Date FROM HABITDAY WHERE HabitID='" + id + "' AND State = 1";
+        String selectQuery = "SELECT * FROM HABITDAY WHERE HabitID='" + id + "'";
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                result.add(cursor.getString(0));
+                HabitDay habitDay = new HabitDay();
+
+                habitDay.setHabitId(Integer.parseInt(cursor.getString(0)));
+                habitDay.setDate(cursor.getString(1));
+                habitDay.setState(Integer.parseInt(cursor.getString(2)));
+
+                result.add(habitDay);
             } while (cursor.moveToNext());
         }
         return result;
@@ -531,9 +534,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetHabitDes(cursor.getString(2));
                 habit.SetHabitCreatedDate(cursor.getString(3));
                 habit.SetFrequency(cursor.getInt((4)));
-                habit.SetPoint(cursor.getInt(5));
-                habit.SetHabitRankId(cursor.getInt(6));
-                habit.SetScore(cursor.getInt(7));
+                habit.SetHabitRankId(cursor.getInt(5));
+                habit.SetScore(cursor.getInt(6));
 
                 return habit;
             } catch (Exception ex) {
@@ -595,7 +597,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Description", habit.GetHabitDes());
         values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
         values.put("Frequency", habit.GetFrequency());
-        values.put("Point", habit.GetPoint());
         values.put("Score", habit.GetScore());
         values.put("RankID", habit.GetHabitRankId());
 

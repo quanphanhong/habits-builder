@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.habitsbuilder.Database.Habit;
 import com.example.habitsbuilder.Database.HabitDay;
 import com.example.habitsbuilder.dummy.DummyContent;
 
@@ -116,6 +117,18 @@ public class DailyTaskFragment extends Fragment {
         if (context == null) return;
         DatabaseHelper db = new DatabaseHelper(context);
         db.updateHabitDay(habitDay);
+    }
+
+    public static List<HabitDay> getHabitDayByHabitId(int id) {
+        if (context == null) return null;
+        DatabaseHelper db = new DatabaseHelper(context);
+        return db.getHabitDayByHabitId(id);
+    }
+
+    public static Habit getHabitById(int id) {
+        if (context == null) return null;
+        DatabaseHelper db = new DatabaseHelper(context);
+        return db.getHabit(id);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

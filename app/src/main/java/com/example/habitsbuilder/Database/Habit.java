@@ -1,5 +1,7 @@
 package com.example.habitsbuilder.Database;
 
+import com.example.habitsbuilder.DatabaseHelper;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,12 +17,11 @@ public class Habit implements Serializable {
 
     public Habit() {}
 
-    public Habit(String Name, String Description, String CreatedDate, int Frequency, int Streak, int RankID, int Score) {
+    public Habit(String Name, String Description, String CreatedDate, int Frequency, int RankID, int Score) {
         this.Name = Name;
         this.Description = Description;
         this.CreatedDate = CreatedDate;
         this.Frequency = Frequency;
-        this.Point = Streak;
         this.RankID = RankID;
         this.Score = Score;
     }
@@ -30,7 +31,6 @@ public class Habit implements Serializable {
     public String GetHabitDes(){return Description;}
     public String GetHabitCreatedDate(){return CreatedDate;}
     public int GetFrequency() {return Frequency;}
-    public int GetPoint(){return Point;}
     public int GetHabitRankId(){return RankID;}
     public int GetScore(){return Score;}
 
@@ -39,9 +39,6 @@ public class Habit implements Serializable {
     public void SetHabitDes(String des){Description = des;}
     public void SetHabitCreatedDate(String date){CreatedDate = date;}
     public void SetFrequency(int frequency){Frequency = frequency;}
-    public void SetPoint(int point){Point = point;}
     public void SetHabitRankId(int rankId){RankID = rankId;}
     public void SetScore(int score){Score = score;}
-
-
 }
