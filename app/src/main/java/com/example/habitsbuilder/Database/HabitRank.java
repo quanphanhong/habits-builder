@@ -3,17 +3,19 @@ package com.example.habitsbuilder.Database;
 import java.io.Serializable;
 
 public class HabitRank implements Serializable {
-    private  int RankId;
-    private  String Name;
-    private  String Description;
-    private  String Image;
+    private int RankId;
+    private String Name;
+    private String Description;
+    private String Image;
+    private int achieveScore;
 
     public HabitRank(){};
 
-    public HabitRank(String name, String des, String img){
+    public HabitRank(String name, String des, String img, int score){
         Name = name;
         Description = des;
         Image = img;
+        achieveScore = score;
     }
 
     public int getRankId() {
@@ -32,6 +34,10 @@ public class HabitRank implements Serializable {
         return Image;
     }
 
+    public int getAchieveScore() {
+        return achieveScore;
+    }
+
     public void setRankId(int rankId) {
         RankId = rankId;
     }
@@ -46,5 +52,9 @@ public class HabitRank implements Serializable {
 
     public void setImage(String image) {
         Image = image;
+    }
+
+    public void setAchieveScore(int score) {
+        achieveScore = score;
     }
 }

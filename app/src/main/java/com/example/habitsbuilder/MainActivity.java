@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK) {
+                Habit habit = (Habit) data.getSerializableExtra("result");
+                DatabaseHelper db = new DatabaseHelper(context);
+                db.addHabit(habit);
                 updateHabitList();
                 DailyTaskFragment.updateHabitList();
                 updateAchievementList();

@@ -1,5 +1,6 @@
 package com.example.habitsbuilder;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,12 @@ public class HabitDetail extends AppCompatActivity {
     private Habit habit;
 
     private TextView tv_Title;
+    private TextView tv_description;
+    private TextView tv_createdDate;
+    private TextView tv_frequency;
+    private TextView tv_rank;
+    private TextView tv_point;
+
 
     private DatabaseHelper db;
 
@@ -29,10 +36,16 @@ public class HabitDetail extends AppCompatActivity {
 
         init();
         LoadHabit(savedInstanceState);
+        displayInfo();
     }
 
     private void init() {
         tv_Title = findViewById(R.id.habit_name);
+        tv_description = findViewById(R.id.tv_description);
+        tv_createdDate = findViewById(R.id.tv_created_date);
+        tv_frequency = findViewById(R.id.tv_frequency);
+        tv_rank = findViewById(R.id.tv_rank);
+        tv_point = findViewById(R.id.tv_point);
     }
 
     private void LoadHabit(Bundle savedInstanceState) {
@@ -52,6 +65,14 @@ public class HabitDetail extends AppCompatActivity {
         habit = db.getHabit(id);
 
         tv_Title.setText(habit.GetHabitName());
+    }
+
+    private void displayInfo() {
+        tv_description.setText(habit.GetHabitName());
+        tv_createdDate.setText(habit.GetHabitCreatedDate());
+        tv_frequency.setText(String.valueOf(habit.GetFrequency()) + " " + getResources().getString(R.string.habit_detail_info_frequency_des));
+        tv_rank.setText(String.valueOf(db.getRank(habit.GetHabitRankId()).getName()));
+        tv_point.setText(" (" + String.valueOf(habit.GetPoint()) + ")");
     }
 
     public void deleteHabitClicked(View view) {
@@ -79,4 +100,30 @@ public class HabitDetail extends AppCompatActivity {
         builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }
+
+    public void editHabitClicked(View view) {
+        Intent intent = new Intent(this, NewHabit.class);
+        intent.putExtra("pre_input", habit);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                habit = (Habit) data.getSerializableExtra("result");
+                db.updateHabit(habit);
+                displayInfo();
+            }
+        }
+    }
+
+    public void returnClicked(View view) {
+        finish();
+    }
+
 }

@@ -47,6 +47,8 @@ public class NewHabit extends AppCompatActivity {
     Switch sw_alert;
     TextView tv_alertTime;
 
+    Habit inputHabit = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class NewHabit extends AppCompatActivity {
 
         init();
         prepFrequency();
+        loadInfo();
     }
 
     private void init() {
@@ -66,6 +69,17 @@ public class NewHabit extends AppCompatActivity {
         sw_alert = (Switch) findViewById(R.id.habit_alert_switch);
         panel_alert.setVisibility(View.INVISIBLE);
         sw_alertChangedListener();
+    }
+
+    private void loadInfo() {
+        if (getIntent().getExtras() != null)
+        {
+            inputHabit = (Habit) getIntent().getSerializableExtra("pre_input");
+            et_habitName.setText(inputHabit.GetHabitName());
+            et_description.setText(inputHabit.GetHabitDes());
+            et_startingDate.setText(inputHabit.GetHabitCreatedDate());
+            sp_frequency.setSelection(inputHabit.GetFrequency() - 1);
+        }
     }
 
     private void sw_alertChangedListener() {
@@ -211,9 +225,12 @@ public class NewHabit extends AppCompatActivity {
                 DEFAULT_STATE
         );
 
-        db.addHabit(new_habit);
+        if (inputHabit != null)
+            new_habit.SetHabitId(inputHabit.GetHabitId());
+
+        //db.addHabit(new_habit);
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("result", "saved");
+        resultIntent.putExtra("result", new_habit);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

@@ -36,4 +36,9 @@
     <dimen name="pets_progressbar_marginRight">20dp</dimen>
     <dimen name="pet_width">300dp</dimen>
     <dimen name="pet_height">300dp</dimen>
+
+    <!-- habit detail -->
+    <dimen name="habit_detail_description_text_size">25sp</dimen>
+    <dimen name="habit_detail_info_text_size">20sp</dimen>
+    <dimen name="habit_detail_info_margin">5dp</dimen>
 </resources>

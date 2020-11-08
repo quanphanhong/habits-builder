@@ -22,4 +22,11 @@
     <string name="new_habit_title5">Reminder</string>
     <string name="new_habit_title5_1">Reminding Time</string>
     <string name="todo">TODO</string>
+
+    <!-- Habit Detail -->
+    <string name="habit_detail_info_created_date">Created Date:</string>
+    <string name="habit_detail_info_frequency">Frequency:</string>
+    <string name="habit_detail_info_frequency_des">day(s) per week</string>
+    <string name="habit_detail_info_rank">Rank:</string>
+    <string name="habit_detail_info_point">Point:</string>
 </resources>
