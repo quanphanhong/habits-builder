@@ -27,10 +27,6 @@ public class HabitDetail extends AppCompatActivity {
     private TextView tv_rank;
     private TextView tv_point;
 
-
-    private DatabaseHelper db;
-    static Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +44,6 @@ public class HabitDetail extends AppCompatActivity {
         tv_frequency = findViewById(R.id.tv_frequency);
         tv_rank = findViewById(R.id.tv_rank);
         tv_point = findViewById(R.id.tv_point);
-
-        context = this;
     }
 
     private void LoadHabit(Bundle savedInstanceState) {
@@ -65,9 +59,7 @@ public class HabitDetail extends AppCompatActivity {
             id = (int) savedInstanceState.getSerializable("habitID");
         }
 
-        db = new DatabaseHelper(this);
-        habit = db.getHabit(id);
-
+        habit = DataAccess.getHabit(id);
         tv_Title.setText(habit.GetHabitName());
     }
 
@@ -76,7 +68,7 @@ public class HabitDetail extends AppCompatActivity {
         tv_description.setText(habit.GetHabitDes());
         tv_createdDate.setText(habit.GetHabitCreatedDate());
         tv_frequency.setText(String.valueOf(habit.GetFrequency()) + " " + getResources().getString(R.string.habit_detail_info_frequency_des));
-        tv_rank.setText(String.valueOf(db.getRank(habit.GetHabitRankId()).getName()));
+        tv_rank.setText(String.valueOf(DataAccess.getRank(habit.GetHabitRankId()).getName()));
         tv_point.setText(" (" + String.valueOf(habit.GetScore()) + ")");
     }
 
@@ -87,7 +79,7 @@ public class HabitDetail extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        db.deleteHabit(habit);
+                        DataAccess.deleteHabit(habit);
                         MainActivity.updateHabitList();
                         DailyTaskFragment.updateHabitList();
                         MainActivity.updateAchievementList();
@@ -121,16 +113,10 @@ public class HabitDetail extends AppCompatActivity {
             if (resultCode == RESULT_OK)
             {
                 habit = (Habit) data.getSerializableExtra("result");
-                updateHabit(habit);
+                DataAccess.updateHabit(habit);
                 displayInfo();
             }
         }
-    }
-
-    public static void updateHabit(Habit habit) {
-        if (context == null) return;
-        DatabaseHelper database = new DatabaseHelper(context);
-        database.updateHabit(habit);
     }
 
     public void returnClicked(View view) {

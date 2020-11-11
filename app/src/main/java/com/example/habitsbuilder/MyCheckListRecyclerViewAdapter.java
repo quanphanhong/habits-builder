@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,10 +63,21 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     HabitDay habitDay = new HabitDay(mItem.id, mItem.habit_day, mItem.habit_state);
+                    int stateAfter = 0;
+                    if (isChecked) stateAfter = 1;
+                    //Log.i("State", String.valueOf(habitDay.getState()));
+                    if (habitDay.getState() == stateAfter) return;
+
                     if (isChecked)
+                    {
                         habitDay.setState(1);
+                        mItem.habit_state = 1;
+                    }
                     else
+                    {
                         habitDay.setState(0);
+                        mItem.habit_state = 0;
+                    }
                     buttonView.setChecked(isChecked);
                     DailyTaskFragment.updateHabitDay(habitDay);
 
@@ -76,7 +88,7 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
                     for (int i = 0; i < habitDayList.size(); i++) {
                         if (habitDayList.get(i).getHabitId() == habitDay.getHabitId() && habitDayList.get(i).getDate().equals(habitDay.getDate())) {
                             int streakBefore = 0, leftSum = 0;
-                            for (int j = i - 1; j > 0; j--) {
+                            for (int j = i - 1; j >= 0; j--) {
                                 if (habitDayList.get(j).getState() == 1) {
                                     streakBefore++;
                                     leftSum += streakBefore * 10;
@@ -103,12 +115,18 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
                                 sum = leftSum + rightSum - sum;
 
                             habit.SetScore(habit.GetScore() + sum);
-                            HabitDetail.updateHabit(habit);
+                            DataAccess.updateHabit(habit);
+
+                            Log.i("Check state: ", String.valueOf(isChecked));
+                            Log.i("Sum", String.valueOf(sum));
+                            Log.i("Left Sum", String.valueOf(leftSum));
+                            Log.i("Left Streak", String.valueOf(streakBefore));
+                            Log.i("Right Sum", String.valueOf(rightSum));
+                            Log.i("Right Streak", String.valueOf(streakAfter));
+
                             break;
                         }
                     }
-
-                    //DailyTaskFragment.updateHabitList();
                 }
             });
             mHabitDayContent = (TextView) view.findViewById(R.id.habit_day_text_view);

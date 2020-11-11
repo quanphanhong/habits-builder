@@ -103,7 +103,7 @@ public class DummyContent {
         public final int id;
         public final String habit_name;
         public final String habit_day;
-        public final int habit_state;
+        public int habit_state;
 
         public DummyHabitDay(int id, String habit_name, String habit_day, int habit_state) {
             this.id = id;

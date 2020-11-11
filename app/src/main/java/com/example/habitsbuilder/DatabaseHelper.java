@@ -124,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = this.getRankCount();
         if (count == 0) {
             for (int i = 1; i <= 10; i++) {
-                HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i), (i - 1) * i * 2000);
+                HabitRank rank = new HabitRank("Rank " + String.valueOf(i), "Rank " + String.valueOf(i), "ic_lv" + String.valueOf(i), (i - 1) * i * 1000);
                 this.addRank(rank);
             }
         }

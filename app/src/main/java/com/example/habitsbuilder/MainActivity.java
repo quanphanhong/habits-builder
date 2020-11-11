@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView mainTitle;
 
-    static Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,39 +58,29 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.fragment);
 
         mainTitle = (TextView) findViewById(R.id.main_title);
-        context = getApplicationContext();
+
+        DataAccess.setContext(getApplicationContext());
     }
 
     public static void updateHabitList() {
-        DatabaseHelper db = new DatabaseHelper(context);
-        db.createDefaultRanksIfNeeded();
-        List<Habit> habitList = db.getAllHabit();
+        List<Habit> habitList = DataAccess.getAllHabit();
         DummyContent.ITEMS.clear();
         DummyContent.ITEM_MAP.clear();
         for (Habit habit : habitList){
-            DummyContent.addItem(DummyContent.createDummyItem(habit, db.getRank(habit.GetHabitRankId())));
+            DummyContent.addItem(DummyContent.createDummyItem(habit, DataAccess.getRank(habit.GetHabitRankId())));
         }
         HabitListFragment.updateRecyclerView();
     }
 
     public static void updateAchievementList() {
-        DatabaseHelper db = new DatabaseHelper(context);
-        db.createDefaultRewardsIfNeeded();
-        db.createDefaultAchievementsIfNeeded();
-
-        List<Achievements> achievementsList = db.getAllAchievements();
+        List<Achievements> achievementsList = DataAccess.getAllAchievements();
 
         DummyContent.DummyAchievement_ITEMS.clear();
         DummyContent.DummyAchievement_ITEM_MAP.clear();
 
         for (Achievements achievement : achievementsList){
-            DummyContent.DummyAchievement_addItem(DummyContent.DummyAchievement_createDummyItem(achievement, db.getReward(achievement.GetAchRewId())));
+            DummyContent.DummyAchievement_addItem(DummyContent.DummyAchievement_createDummyItem(achievement, DataAccess.getReward(achievement.GetAchRewId())));
         }
-    }
-
-    public static HabitRank getRank(int id) {
-        DatabaseHelper db = new DatabaseHelper(context);
-        return db.getRank(id);
     }
 
     private void menuItemsChanged() {
@@ -144,8 +132,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK) {
                 Habit habit = (Habit) data.getSerializableExtra("result");
-                DatabaseHelper db = new DatabaseHelper(context);
-                db.addHabit(habit);
+                DataAccess.insertHabit(habit);
                 updateHabitList();
                 DailyTaskFragment.updateHabitList();
                 updateAchievementList();
