@@ -21,12 +21,26 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "HabitManager.db";
+
+    private static final String CREATE_DATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS DATE(" +
+            "DateID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Day INTEGER, " +
+            "Month INTEGER, " +
+            "Year INTEGER, " +
+            "WeekYear INTEGER" +
+            ")";
+
+    private static final String CREATE_TIME_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS TIME (" +
+            "TimeID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Hour INTEGER, " +
+            "Minute INTEGER" +
+            ")";
 
     private static final String CREATE_HABIT_RANK_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS HABITRANK (" +
             "RankID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -98,6 +112,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_DATE_TABLE_QUERY);
+        db.execSQL(CREATE_TIME_TABLE_QUERY);
         db.execSQL(CREATE_HABIT_RANK_TABLE_QUERY);
         db.execSQL(CREATE_HABIT_TABLE_QUERY);
         db.execSQL(CREATE_HABIT_DAY_TABLE_QUERY);
@@ -161,7 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     description[i] = "Having three level 3 habits";
                     break;
                 case 7:
-                    name[i] = "Control habit";
+                    name[i] = "Control Habit";
                     description[i] = "Having three level 5 habits";
                     break;
                 case 8:
@@ -181,7 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     description[i] = "Having five level 5 habits";
                     break;
                 case 12:
-                    name[i] = "Master habit";
+                    name[i] = "Master of Habit";
                     description[i] = "Having five level 10 habits";
                     break;
             }
@@ -313,6 +329,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert("HABITRANK", null, values);
         db.close();
+    }
+
+    public void addDate(Date date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Day", date.getDay());
+        values.put("Month", date.getMonth());
+        values.put("Year", date.getYear());
+        values.put("WeekYear", date.getWeekYear());
     }
 
     public List<Habit> getAllHabit(){
@@ -521,7 +547,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Habit getHabit(int id) {
-
         String query = "SELECT * FROM HABIT WHERE HabitID=" + id;
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -571,6 +596,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    public Date getDate(int day, int month, int year) {
+        String query = "SELECT * FROM DATE WHERE Day=" + day + " AND Month=" + month + "AND Year=" + year;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            try {
+                Date date = new Date();
+                date.setDateID(Integer.parseInt(cursor.getString(0)));
+                date.setDay(Integer.parseInt(cursor.getString(1)));
+                date.setMonth(Integer.parseInt(cursor.getString(2)));
+                date.setYear(Integer.parseInt(cursor.getString(3)));
+                date.setWeekYear(Integer.parseInt(cursor.getString(4)));
+
+                return date;
+            } catch (Exception ex) {
+                Log.i("Error", "Error while loading date from database");
+            }
+        }
+
+        return null;
+    }
+
+    public Date getDate(int id) {
+        String query = "SELECT * FROM DATE WHERE DateID=" + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            try {
+                Date date = new Date();
+                date.setDateID(Integer.parseInt(cursor.getString(0)));
+                date.setDay(Integer.parseInt(cursor.getString(1)));
+                date.setMonth(Integer.parseInt(cursor.getString(2)));
+                date.setYear(Integer.parseInt(cursor.getString(3)));
+                date.setWeekYear(Integer.parseInt(cursor.getString(4)));
+
+                return date;
+            } catch (Exception ex) {
+                Log.i("Error", "Error while loading date from database");
+            }
+        }
+
+        return null;
+    }
+
     public void deleteHabit(Habit habit){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("HABITDAY", "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
@@ -587,6 +658,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteRank(HabitRank rank) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("HABITRANK", "RankID=?", new String[]{String.valueOf(rank.getRankId())});
+        db.close();
+    }
+
+    public void deleteDate(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("DATE", "DateID=?", new String[]{String.valueOf(id)});
+        db.close();
     }
 
     public void updateHabit(Habit habit){
@@ -650,5 +728,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("AchieveScore", rank.getAchieveScore());
 
         db.update("HABITRANK", values, "RankID=?", new String[]{String.valueOf(rank.getRankId())});
+    }
+
+    public void updateDate(Date date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Day", date.getDay());
+        values.put("Month", date.getMonth());
+        values.put("Year", date.getYear());
+        values.put("WeekYear", date.getWeekYear());
+
+        db.update("DATE", values, "DateID=?", new String[]{String.valueOf(date.getDateID())});
     }
 }
