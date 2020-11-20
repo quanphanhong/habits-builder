@@ -82,8 +82,8 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
                     DailyTaskFragment.updateHabitDay(habitDay);
 
                     // Update Habit Score
-                    List<HabitDay> habitDayList = DailyTaskFragment.getHabitDayByHabitId(habitDay.getHabitId());
-                    Habit habit = DailyTaskFragment.getHabitById(habitDay.getHabitId());
+                    List<HabitDay> habitDayList = DataAccess.getHabitDayByHabitId(habitDay.getHabitId());
+                    Habit habit = DataAccess.getHabit(habitDay.getHabitId());
 
                     for (int i = 0; i < habitDayList.size(); i++) {
                         if (habitDayList.get(i).getHabitId() == habitDay.getHabitId() && habitDayList.get(i).getDate().equals(habitDay.getDate())) {
@@ -116,13 +116,6 @@ public class MyCheckListRecyclerViewAdapter extends RecyclerView.Adapter<MyCheck
 
                             habit.SetScore(habit.GetScore() + sum);
                             DataAccess.updateHabit(habit);
-
-                            Log.i("Check state: ", String.valueOf(isChecked));
-                            Log.i("Sum", String.valueOf(sum));
-                            Log.i("Left Sum", String.valueOf(leftSum));
-                            Log.i("Left Streak", String.valueOf(streakBefore));
-                            Log.i("Right Sum", String.valueOf(rightSum));
-                            Log.i("Right Streak", String.valueOf(streakAfter));
 
                             break;
                         }

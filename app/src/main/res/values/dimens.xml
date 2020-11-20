@@ -4,7 +4,6 @@
 
     <!-- daily task -->
     <dimen name="daily_task_habit_list_title">20sp</dimen>
-    <dimen name="daily_task_layout_margin_left">20dp</dimen>
 
     <!-- habit list -->
     <dimen name="habit_name_text_size">20sp</dimen>
@@ -12,7 +11,6 @@
     <!-- new habit -->
     <dimen name="new_habit_icon_margin">20dp</dimen>
     <dimen name="new_habit_text_margin">20dp</dimen>
-    <dimen name="new_habit_title_size">20sp</dimen>
     <dimen name="new_habit_edit_text_size_large">30sp</dimen>
     <dimen name="new_habit_edit_text_size_small">20sp</dimen>
 
@@ -22,7 +20,6 @@
     <dimen name="achievements_text_size_large">20sp</dimen>
     <dimen name="achievements_text_size_small">10sp</dimen>
     <dimen name="achievements_text_margin">8dp</dimen>
-    <dimen name="achievements_text_size_medium">16sp</dimen>
     <dimen name="achievements_button_margin_left_right">10dp</dimen>
     <dimen name="achievements_button_margin_top_bottom">5dp</dimen>
 
@@ -34,8 +31,6 @@
     <dimen name="pets_progressbar_marginTop">5dp</dimen>
     <dimen name="pets_progressbar_marginBottom">5dp</dimen>
     <dimen name="pets_progressbar_marginRight">20dp</dimen>
-    <dimen name="pet_width">300dp</dimen>
-    <dimen name="pet_height">300dp</dimen>
 
     <!-- habit detail -->
     <dimen name="habit_detail_description_text_size">25sp</dimen>

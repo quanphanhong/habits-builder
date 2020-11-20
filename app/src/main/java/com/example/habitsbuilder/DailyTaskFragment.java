@@ -119,18 +119,6 @@ public class DailyTaskFragment extends Fragment {
         db.updateHabitDay(habitDay);
     }
 
-    public static List<HabitDay> getHabitDayByHabitId(int id) {
-        if (context == null) return null;
-        DatabaseHelper db = new DatabaseHelper(context);
-        return db.getHabitDayByHabitId(id);
-    }
-
-    public static Habit getHabitById(int id) {
-        if (context == null) return null;
-        DatabaseHelper db = new DatabaseHelper(context);
-        return db.getHabit(id);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void updateHabitList() {
         if (context == null) return;

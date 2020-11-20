@@ -26,6 +26,7 @@ public class HabitDetail extends AppCompatActivity {
     private TextView tv_frequency;
     private TextView tv_rank;
     private TextView tv_point;
+    private TextView tv_streak;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class HabitDetail extends AppCompatActivity {
         tv_frequency = findViewById(R.id.tv_frequency);
         tv_rank = findViewById(R.id.tv_rank);
         tv_point = findViewById(R.id.tv_point);
+        tv_streak = findViewById(R.id.tv_streak);
     }
 
     private void LoadHabit(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class HabitDetail extends AppCompatActivity {
         tv_frequency.setText(String.valueOf(habit.GetFrequency()) + " " + getResources().getString(R.string.habit_detail_info_frequency_des));
         tv_rank.setText(String.valueOf(DataAccess.getRank(habit.GetHabitRankId()).getName()));
         tv_point.setText(" (" + String.valueOf(habit.GetScore()) + ")");
+        tv_streak.setText("Current: " + 0 + " | Best: " + DataAccess.getLongestStreak(habit.GetHabitId()));
     }
 
     public void deleteHabitClicked(View view) {

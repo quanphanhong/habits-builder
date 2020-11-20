@@ -46,7 +46,7 @@ public class MyHabitListRecyclerViewAdapter extends RecyclerView.Adapter<MyHabit
         holder.mHabitDescription.setText(mValues.get(position).habit_description);
         holder.mHabitStartingDay.setText(mValues.get(position).habit_starting_day);
 
-        int rank = DailyTaskFragment.getHabitById(mValues.get(position).id).GetHabitRankId();
+        int rank = DataAccess.getHabit(mValues.get(position).id).GetHabitRankId();
         holder.mLevelProgress.setMax(DataAccess.getRank(rank + 1).getAchieveScore());
         holder.mLevelProgress.setMin(DataAccess.getRank(rank).getAchieveScore());
         holder.mLevelProgress.setProgress(mValues.get(position).habit_point);
