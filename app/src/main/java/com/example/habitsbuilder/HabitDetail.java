@@ -16,9 +16,14 @@ import android.widget.TextView;
 
 import com.example.habitsbuilder.Database.Habit;
 
+import java.util.List;
+
 public class HabitDetail extends AppCompatActivity {
 
     private Habit habit;
+
+    private final int HABIT_BEST_STREAK_ID = 0;
+    private final int HABIT_CURRENT_STREAK_ID = 1;
 
     private TextView tv_Title;
     private TextView tv_description;
@@ -72,7 +77,8 @@ public class HabitDetail extends AppCompatActivity {
         tv_frequency.setText(String.valueOf(habit.GetFrequency()) + " " + getResources().getString(R.string.habit_detail_info_frequency_des));
         tv_rank.setText(String.valueOf(DataAccess.getRank(habit.GetHabitRankId()).getName()));
         tv_point.setText(" (" + String.valueOf(habit.GetScore()) + ")");
-        tv_streak.setText("Current: " + 0 + " | Best: " + DataAccess.getLongestStreak(habit.GetHabitId()));
+        List<Integer> streaks = DataAccess.getStreaks(habit.GetHabitId());
+        tv_streak.setText("Current: " + streaks.get(HABIT_CURRENT_STREAK_ID) + " | Best: " + streaks.get(HABIT_BEST_STREAK_ID));
     }
 
     public void deleteHabitClicked(View view) {

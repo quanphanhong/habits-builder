@@ -92,7 +92,10 @@ public class DataAccess {
     }
 
     // get the longest streak of a habit
-    public static int getLongestStreak(int habitID) {
+    public static List<Integer> getStreaks(int habitID) {
+        List<Integer> result = new ArrayList<>();
+        result.clear();
+
         // get frequency
         Habit habit = getHabit(habitID);
         int frequency = habit.GetFrequency();
@@ -129,8 +132,10 @@ public class DataAccess {
                 currentStreak = currentStreakInWeek;
             }
         }
+        result.add(longestStreak);
+        result.add(currentStreak);
 
-        return longestStreak;
+        return result;
     }
 
 }
