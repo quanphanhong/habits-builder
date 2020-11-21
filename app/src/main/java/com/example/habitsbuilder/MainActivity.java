@@ -53,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         //habit_list = (LinearLayout) findViewById(R.id.habit_list);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation_bar);
-
         fragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         navController = Navigation.findNavController(this, R.id.fragment);
-
         mainTitle = (TextView) findViewById(R.id.main_title);
 
         DataAccess.setContext(getApplicationContext());

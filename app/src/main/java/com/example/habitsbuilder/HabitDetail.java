@@ -3,6 +3,8 @@ package com.example.habitsbuilder;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -79,6 +82,8 @@ public class HabitDetail extends AppCompatActivity {
         tv_point.setText(" (" + String.valueOf(habit.GetScore()) + ")");
         List<Integer> streaks = DataAccess.getStreaks(habit.GetHabitId());
         tv_streak.setText("Current: " + streaks.get(HABIT_CURRENT_STREAK_ID) + " | Best: " + streaks.get(HABIT_BEST_STREAK_ID));
+
+        FrequencyChart.setListOfFrequencies(DataAccess.getFrequencyByWeek(habit.GetHabitId()));
     }
 
     public void deleteHabitClicked(View view) {

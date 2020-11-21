@@ -138,4 +138,19 @@ public class DataAccess {
         return result;
     }
 
+    public static List<Frequency> getFrequencyByWeek(int habitID) {
+        List<List<HabitDay>> habitWeeks = separateHabitDaysIntoWeek(getHabitDayByHabitId(habitID));
+        List<Frequency> result = new ArrayList<>();
+        for (List<HabitDay> habitWeek : habitWeeks) {
+            if (habitWeek.isEmpty()) continue;
+            int totalCompleted = 0;
+            for (HabitDay habitDay : habitWeek) {
+                if (habitDay.getState() == 1) totalCompleted++;
+            }
+            result.add(new Frequency(habitWeek.get(0).toString() + "-" + habitWeek.get(habitWeek.size() - 1).toString(), totalCompleted));
+        }
+
+        return result;
+    }
+
 }

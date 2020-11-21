@@ -185,4 +185,11 @@
 
     </LinearLayout>
 
+    <fragment
+        android:id="@+id/fragment_frequency_chart"
+        android:name="com.example.habitsbuilder.FrequencyChart"
+        android:layout_below="@id/habit_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
