@@ -3,7 +3,10 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="titleColor">#000000</color>
+    <color name="titleColor">#FFFFFF</color>
+
+    <!-- title bar -->
+    <color name="colorTitleBar">#03A9F4</color>
 
     <!-- habit list -->
     <color name="colorHabitStartingDate">#FC0303</color>

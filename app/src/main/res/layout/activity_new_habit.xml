@@ -9,6 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_panel"
         android:layout_width="match_parent"
+        android:background="@drawable/title_bar_background"
+        android:elevation="8dp"
         android:layout_height="50dp">
 
         <TextView
@@ -98,19 +100,20 @@
 
                 <ImageView
                     android:id="@+id/habit_description_image_view"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    android:src="@drawable/ic_writing"/>
+                    android:src="@drawable/ic_baseline_description_24"/>
 
                 <EditText
                     android:id="@+id/habit_description_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:hint="@string/new_habit_title2"
-                    android:maxLines="3"
-                    android:minLines="3"
+                    android:maxLines="1"
+                    android:minLines="1"
                     android:textSize="@dimen/new_habit_edit_text_size_small" />
 
             </LinearLayout>
@@ -123,11 +126,11 @@
 
                 <ImageView
                     android:id="@+id/habit_starting_day_image_view"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_calendar"/>
+                    android:src="@drawable/ic_baseline_today_24"/>
 
                 <EditText
                     android:id="@+id/habit_starting_day_edit_text"
@@ -136,6 +139,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:editable="false"
+                    android:inputType="none"
                     android:onClick="datePickerClicked"
                     android:gravity="end"
                     android:singleLine="true"
@@ -152,10 +156,10 @@
 
                 <ImageView
                     android:id="@+id/habit_frequency_image_view"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    android:src="@drawable/ic_clock"/>
+                    android:src="@drawable/ic_baseline_show_chart_24"/>
 
                 <Spinner
                     android:id="@+id/habit_frequency_spinner"
@@ -186,10 +190,10 @@
 
                 <ImageView
                     android:id="@+id/habit_alert_image_view"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    android:src="@drawable/ic_bell"/>
+                    android:src="@drawable/ic_baseline_notifications_active_24"/>
 
                 <Switch
                     android:id="@+id/habit_alert_switch"
@@ -208,9 +212,9 @@
                 android:layout_alignParentRight="true">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_alarmclock"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_baseline_access_alarm_24"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/new_habit_icon_margin"/>
 
@@ -221,6 +225,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:editable="false"
+                    android:inputType="none"
                     android:onClick="timePickerClicked"
                     android:singleLine="true"
                     android:text="11:11 AM"
