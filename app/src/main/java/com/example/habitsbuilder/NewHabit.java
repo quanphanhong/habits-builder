@@ -101,9 +101,10 @@ public class NewHabit extends AppCompatActivity {
                 values
         );
 
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
 
         sp_frequency.setAdapter(adapter);
+        sp_frequency.setBackground(null);
     }
 
     private static int currentDay = 0;

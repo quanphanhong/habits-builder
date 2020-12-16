@@ -73,13 +73,15 @@
 
                 <ImageView
                     android:id="@+id/habit_name_image_view"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    android:src="@drawable/ic_flag"/>
+                    android:src="@drawable/ic_flag" />
 
                 <EditText
                     android:id="@+id/habit_name_edit_text"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/new_habit_text_margin"
@@ -102,8 +104,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    app:srcCompat="@drawable/ic_baseline_description_24"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    app:srcCompat="@drawable/ic_baseline_description_24" />
 
                 <EditText
                     android:id="@+id/habit_description_edit_text"
@@ -128,9 +130,9 @@
                     android:id="@+id/habit_starting_day_image_view"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_margin="@dimen/new_habit_icon_margin"
                     android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_baseline_today_24"/>
+                    android:layout_margin="@dimen/new_habit_icon_margin"
+                    app:srcCompat="@drawable/ic_baseline_today_24" />
 
                 <EditText
                     android:id="@+id/habit_starting_day_edit_text"
@@ -139,9 +141,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
                     android:editable="false"
+                    android:gravity="end"
                     android:inputType="none"
                     android:onClick="datePickerClicked"
-                    android:gravity="end"
                     android:singleLine="true"
                     android:textAlignment="textEnd"
                     android:textSize="@dimen/new_habit_edit_text_size_small" />
@@ -159,7 +161,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    app:srcCompat="@drawable/ic_baseline_show_chart_24"/>
+                    app:srcCompat="@drawable/ic_baseline_show_chart_24" />
 
                 <Spinner
                     android:id="@+id/habit_frequency_spinner"
@@ -167,19 +169,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/new_habit_text_margin"
-                    android:popupBackground="@color/colorTitleBar"
-                    android:spinnerMode="dialog"
+                    android:spinnerMode="dropdown"
                     android:textSize="@dimen/new_habit_edit_text_size_small" />
 
                 <TextView
                     android:id="@+id/habit_frequency_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginTop="@dimen/new_habit_text_margin"
                     android:layout_marginBottom="@dimen/new_habit_text_margin"
                     android:text="@string/new_habit_title4_1"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="@dimen/new_habit_edit_text_size_small"/>
+                    android:textSize="@dimen/new_habit_edit_text_size_small" />
 
             </LinearLayout>
 
@@ -194,14 +195,14 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="@dimen/new_habit_icon_margin"
-                    app:srcCompat="@drawable/ic_baseline_notifications_active_24"/>
+                    app:srcCompat="@drawable/ic_baseline_notifications_active_24" />
 
                 <Switch
                     android:id="@+id/habit_alert_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="@dimen/new_habit_text_margin"/>
+                    android:layout_marginRight="@dimen/new_habit_text_margin" />
 
             </LinearLayout>
 
@@ -215,9 +216,9 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/ic_baseline_access_alarm_24"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/new_habit_icon_margin"/>
+                    android:layout_margin="@dimen/new_habit_icon_margin"
+                    app:srcCompat="@drawable/ic_baseline_access_alarm_24" />
 
                 <EditText
                     android:id="@+id/alert_time_text_view"
