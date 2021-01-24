@@ -208,7 +208,7 @@ public class NewHabit extends AppCompatActivity {
         String habitStartingDate = et_startingDate.getText().toString();
         int frequency = Integer.parseInt(sp_frequency.getSelectedItem().toString());
 
-        if (habitName == "" || habitDescription == "" || frequency < 0 || frequency > 7 || habitStartingDate == "")
+        if (habitName.equals("") || habitDescription.equals("") || frequency < 0 || frequency > 7 || habitStartingDate.equals(""))
             return;
 
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
