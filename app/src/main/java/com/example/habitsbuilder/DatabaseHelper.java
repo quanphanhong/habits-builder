@@ -58,6 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "Frequency INTEGER, " +
             "RankID DECIMAL, " +
             "Score INTEGER, " +
+            "Reminder INTEGER, " +
+            "ReminderTime TEXT, " +
             "FOREIGN KEY(RankID) REFERENCES HABITRANK(RankID)" +
             ")";
 
@@ -261,9 +263,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("Name", habit.GetHabitName());
         values.put("Description", habit.GetHabitDes());
-        values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
+        values.put("CreatedDate", habit.GetHabitCreatedDate());
         values.put("Frequency", habit.GetFrequency());
         values.put("Score", habit.GetScore());
+        values.put("Reminder", habit.GetReminder());
+        values.put("ReminderTime", habit.GetReminderTime());
         values.put("RankID", habit.GetHabitRankId());
 
         db.insert("HABIT", null, values);
@@ -357,6 +361,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetFrequency(Integer.parseInt(cursor.getString(4)));
                 habit.SetHabitRankId(cursor.getInt(5));
                 habit.SetScore(cursor.getInt(6));
+                habit.SetReminder(cursor.getInt(7));
+                habit.SetReminderTime(cursor.getString(8));
 
                 // Adding habit to list
                 habitList.add(habit);
@@ -561,6 +567,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 habit.SetFrequency(cursor.getInt((4)));
                 habit.SetHabitRankId(cursor.getInt(5));
                 habit.SetScore(cursor.getInt(6));
+                habit.SetReminder(cursor.getInt(7));
+                habit.SetReminderTime(cursor.getString(8));
 
                 return habit;
             } catch (Exception ex) {
@@ -676,6 +684,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("CreatedDate", habit.GetHabitCreatedDate().toString());
         values.put("Frequency", habit.GetFrequency());
         values.put("Score", habit.GetScore());
+        values.put("Reminder", habit.GetReminder());
+        values.put("ReminderTime", habit.GetReminderTime());
         values.put("RankID", habit.GetHabitRankId());
 
         db.update("HABIT", values, "HabitID=?", new String[]{String.valueOf(habit.GetHabitId())});
