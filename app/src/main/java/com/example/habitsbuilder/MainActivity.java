@@ -4,15 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         updateHabitList();
         updateAchievementList();
         menuItemsChanged();
+
+        scheduleNotification(getNotification("You forgot doing your habit, do you?"), 5000);
     }
 
     private void init() {
@@ -95,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                 mainTitle.setText(R.string.mode2);
                                 navController.navigate(R.id.habitListFragment);
                                 break;
-                            case R.id.NewHabit:
+                            /*case R.id.NewHabit:
                                 openNewHabitActivity();
                                 break;
                             case R.id.Pet:
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.Achievements:
                                 mainTitle.setText(R.string.mode5);
                                 navController.navigate(R.id.achievementsFragment2);
-                                break;
+                                break;*/
                         }
                         return true;
                     }
@@ -136,5 +143,26 @@ public class MainActivity extends AppCompatActivity {
                 updateAchievementList();
             }
         }
+    }
+
+
+    private void scheduleNotification (Notification notification , int delay) {
+        Intent notificationIntent = new Intent( this, NotificationPublisher. class ) ;
+        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        long futureInMillis = SystemClock. elapsedRealtime () + delay ;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+    }
+    private Notification getNotification (String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, "default" ) ;
+        builder.setContentTitle("Habit Reminder");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        builder.setChannelId("10001");
+        return builder.build() ;
     }
 }
