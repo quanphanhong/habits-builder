@@ -34,6 +34,8 @@ import com.example.habitsbuilder.Database.HabitRank;
 import com.example.habitsbuilder.dummy.DummyContent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,11 +52,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
+        // Update habit list and achievement list
         updateHabitList();
         updateAchievementList();
+
+        // Switch between fragments when chosen menu item changed
         menuItemsChanged();
 
-        scheduleNotification(getNotification("You forgot doing your habit, do you?"), 5000);
+        // Check and push reminder
+        pushingReminders();
     }
 
     private void init() {
@@ -77,12 +84,60 @@ public class MainActivity extends AppCompatActivity {
         HabitListFragment.updateRecyclerView();
     }
 
+    private void pushingReminders()
+    {
+        for (Habit habit : DataAccess.getAllHabit())
+        {
+            if (habit.GetReminder() == 1)
+                scheduleNotification(getNotification("Have you done this habit - " + habit.GetHabitName()),
+                        getNextRemindingTimeSpan(habit.GetReminderTime()));
+        }
+    }
+
+    private long getNextRemindingTimeSpan(String time)
+    {
+        // Initialize now and next reminding time
+        Calendar now = Calendar.getInstance();
+        Calendar nextRemindingTime = Calendar.getInstance();
+
+        // Get current time (day, month, year, hour, minute)
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
+
+        // Get time string and split it to reminding hour and minute
+        int remindingHour = Integer.parseInt(time.subSequence(0, 2).toString());
+        int remindingMinute = Integer.parseInt(time.subSequence(3, 5).toString());
+
+        // Set current time for now variable
+        now.set(currentYear, currentMonth, currentDay, currentHour, currentMinute);
+
+        // Firstly, set reminding time as now
+        nextRemindingTime = now;
+
+        // If in this day, reminding time has passed, add 1 more day to next reminding time
+        if (currentHour > remindingHour || (currentHour == remindingHour && currentMinute >= remindingMinute))
+            nextRemindingTime.add(Calendar.DATE, 1);
+
+        // Re-set reminding hour and minute
+        nextRemindingTime.set(Calendar.HOUR_OF_DAY, remindingHour);
+        nextRemindingTime.set(Calendar.MINUTE, remindingMinute);
+
+        // Get time span to reminding time
+        return nextRemindingTime.getTimeInMillis() - now.getTimeInMillis();
+    }
+
     public static void updateAchievementList() {
+        // Get achievements from Database
         List<Achievements> achievementsList = DataAccess.getAllAchievements();
 
+        // Clear all achievements in DummyContent
         DummyContent.DummyAchievement_ITEMS.clear();
         DummyContent.DummyAchievement_ITEM_MAP.clear();
 
+        // Add achievements into DummyContent
         for (Achievements achievement : achievementsList){
             DummyContent.DummyAchievement_addItem(DummyContent.DummyAchievement_createDummyItem(achievement, DataAccess.getReward(achievement.GetAchRewId())));
         }
@@ -94,10 +149,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
+                            // Daily Task
                             case R.id.DailyTask:
                                 mainTitle.setText(R.string.mode1);
                                 navController.navigate(R.id.dailyTaskFragment);
                                 break;
+                            // Habit List
                             case R.id.HabitList:
                                 mainTitle.setText(R.string.mode2);
                                 navController.navigate(R.id.habitListFragment);
@@ -134,10 +191,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // When new habit should be added
         if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK) {
                 Habit habit = (Habit) data.getSerializableExtra("result");
+
+                // Insert new habit that parsed from New Habit
                 DataAccess.insertHabit(habit);
+
+                // Update Habit list
                 updateHabitList();
                 DailyTaskFragment.updateHabitList();
                 updateAchievementList();
@@ -146,23 +208,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void scheduleNotification (Notification notification , int delay) {
-        Intent notificationIntent = new Intent( this, NotificationPublisher. class ) ;
-        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION_ID , 1 ) ;
-        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION , notification) ;
-        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
-        long futureInMillis = SystemClock. elapsedRealtime () + delay ;
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
+    private void scheduleNotification (Notification notification, long delay) {
+        // Create a new Notification intent
+        Intent notificationIntent = new Intent( this, NotificationPublisher. class );
+
+        // Put notification info to Notification intent
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+
+        PendingIntent pendingIntent = PendingIntent.
+                getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Calculate reminder time
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+
+        // Get alarm service
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+        // Notify if alarm manager cannot be get successfully
         assert alarmManager != null;
-        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+
+        // Set alarm
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
     private Notification getNotification (String content) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, "default" ) ;
-        builder.setContentTitle("Habit Reminder");
-        builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        // Build a notification
+        // Create a notification builder
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default" );
+
+        builder.setContentTitle("Habit Reminder"); // Notification title
+        builder.setContentText(content); // Notification content
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground); // Display icon in Notification
         builder.setAutoCancel(true);
         builder.setChannelId("10001");
-        return builder.build() ;
+
+        return builder.build();
     }
 }
