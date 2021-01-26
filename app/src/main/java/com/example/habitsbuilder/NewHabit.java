@@ -230,7 +230,15 @@ public class NewHabit extends AppCompatActivity {
 
         // In those cases, saving habit would be cancelled
         if (habitName.equals("") || frequency < 0 || frequency > 7 || habitStartingDate.equals(""))
+        {
+            // Create notified dialog
+            AlertDialog.Builder errorDialog = new AlertDialog.Builder(NewHabit.this);
+            errorDialog.setMessage("Please check your input information!")
+                    .setTitle("An error happened");
+            errorDialog.show();
+
             return;
+        }
 
         // Create a new Database
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
